@@ -111,6 +111,9 @@ export default function Footer() {
           <p className="text-sm text-gray-600">
             &copy; {new Date().getFullYear()} Logical Minds. {t("footer.rights")}
           </p>
+          <span className="flex items-center gap-1.5 text-sm text-gray-600">
+            <span className="text-base leading-none">🇦🇷</span> Based in Buenos Aires
+          </span>
 
           {/* Social icons */}
           <div className="flex gap-4">

@@ -20,7 +20,7 @@ export const translations: Translations = {
       subtitle:
         "We are Logical Minds — an AI-first software factory crafting intelligent solutions that transform businesses and redefine what's possible.",
       cta: "Get Started",
-      ctaSecondary: "Our Work",
+      ctaSecondary: "MVP in 8 Weeks",
     },
     services: {
       badge: "What We Do",
@@ -155,7 +155,7 @@ export const translations: Translations = {
     },
     howWeWork: {
       badge: "AI Agent Infrastructure",
-      title: "AI Agent Infrastructure",
+      title: "AI-Powered Frameworks",
       subtitle: "A dedicated layer of specialized AI agents embedded in every project — trained on our methodologies, connected to your stack, operating 24/7.",
       status: "Active",
       items: {
@@ -177,7 +177,9 @@ export const translations: Translations = {
       },
       explore: "Explore",
       cta: "I Want My AI Infrastructure",
-      callout: "Our agent infrastructure operates 24/7 alongside our human team — a persistent AI workforce that accelerates delivery, eliminates bottlenecks, and continuously optimizes every process in your project.",
+      calloutTitle: "Your AI Team Never Sleeps",
+      calloutStatus: "Active now",
+      callout: "While your competitors wait for office hours, our AI agents are shipping code, running tests, and optimizing your product around the clock — working alongside human experts to deliver faster than any traditional team.",
     },
     agentDetail: {
       title: "AI Agent Infrastructure",
@@ -502,25 +504,19 @@ export const translations: Translations = {
     marquee: {
       row1: {
         a: "Transform Your Brand with AI",
-        b: "Product Development & Benchmarking",
+        b: "Product Development & B2B Solutions",
         c: "From Vision to Reality",
         d: "AI-First Development",
-        e: "UX/UI That Converts",
-        f: "Full-Stack Innovation",
-        g: "AI Agents on Your Team",
-        h: "Intelligent Automation",
-        i: "Ship Faster with AI",
+        e: "AI Agents on Your Team",
+        f: "Ship Faster with AI",
       },
       row2: {
         a: "Automate & Accelerate",
         b: "Building Tomorrow's Technology",
         c: "Empowering Brands with AI",
         d: "End-to-End Product Development",
-        e: "Intelligent Process Optimization",
-        f: "Scale with Confidence",
-        g: "AI Agent Infrastructure",
-        h: "24/7 AI Workforce",
-        i: "Human + Machine Precision",
+        e: "AI Agent Infrastructure",
+        f: "24/7 AI Workforce",
       },
     },
     contact: {
@@ -577,7 +573,7 @@ export const translations: Translations = {
       },
     },
     footer: {
-      tagline: "AI-First Software Factory",
+      tagline: "AI-First Tech Experts",
       rights: "All rights reserved.",
       links: {
         privacy: "Privacy Policy",
@@ -1107,7 +1103,7 @@ export const translations: Translations = {
       subtitle:
         "Somos Logical Minds — una fábrica de software AI-first que crea soluciones inteligentes para transformar negocios y redefinir lo posible.",
       cta: "Comenzar",
-      ctaSecondary: "Nuestro Trabajo",
+      ctaSecondary: "MVP en 8 Semanas",
     },
     services: {
       badge: "Lo Que Hacemos",
@@ -1242,7 +1238,7 @@ export const translations: Translations = {
     },
     howWeWork: {
       badge: "Infraestructura de Agentes IA",
-      title: "Infraestructura de Agentes IA",
+      title: "Frameworks de Trabajo con IA",
       subtitle: "Una capa dedicada de agentes de IA especializados integrados en cada proyecto — entrenados en nuestras metodologías, conectados a tu stack, operando 24/7.",
       status: "Activo",
       items: {
@@ -1264,7 +1260,9 @@ export const translations: Translations = {
       },
       explore: "Explorar",
       cta: "Quiero mi Infraestructura IA",
-      callout: "Nuestra infraestructura de agentes opera 24/7 junto a nuestro equipo humano — una fuerza laboral de IA persistente que acelera entregas, elimina cuellos de botella y optimiza continuamente cada proceso en tu proyecto.",
+      calloutTitle: "Tu Equipo de IA Nunca Duerme",
+      calloutStatus: "Activo ahora",
+      callout: "Mientras tu competencia espera al horario de oficina, nuestros agentes de IA están escribiendo código, corriendo tests y optimizando tu producto las 24 horas — trabajando junto a expertos humanos para entregar más rápido que cualquier equipo tradicional.",
     },
     agentDetail: {
       title: "Infraestructura de Agentes IA",
@@ -1589,25 +1587,19 @@ export const translations: Translations = {
     marquee: {
       row1: {
         a: "Transforma Tu Marca con IA",
-        b: "Desarrollo de Producto & Benchmarking",
+        b: "Desarrollo de Producto & Soluciones B2B",
         c: "De la Visión a la Realidad",
         d: "Desarrollo AI-First",
-        e: "UX/UI Que Convierte",
-        f: "Innovación Full-Stack",
-        g: "Agentes de IA en Tu Equipo",
-        h: "Automatización Inteligente",
-        i: "Lanza Más Rápido con IA",
+        e: "Agentes de IA en Tu Equipo",
+        f: "Lanza Más Rápido con IA",
       },
       row2: {
         a: "Automatiza & Acelera",
         b: "Construyendo la Tecnología del Mañana",
         c: "Potenciando Marcas con IA",
         d: "Desarrollo de Producto End-to-End",
-        e: "Optimización Inteligente de Procesos",
-        f: "Escala con Confianza",
-        g: "Infraestructura de Agentes IA",
-        h: "Fuerza Laboral IA 24/7",
-        i: "Precisión Humano + Máquina",
+        e: "Infraestructura de Agentes IA",
+        f: "Fuerza Laboral IA 24/7",
       },
     },
     contact: {
@@ -1664,7 +1656,7 @@ export const translations: Translations = {
       },
     },
     footer: {
-      tagline: "Fábrica de Software AI-First",
+      tagline: "Expertos Tech AI-First",
       rights: "Todos los derechos reservados.",
       links: {
         privacy: "Política de Privacidad",

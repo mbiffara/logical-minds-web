@@ -81,7 +81,9 @@ export default function HowWeWork() {
         <ScrollReveal>
           <div className="flex justify-center">
             <div className="inline-flex items-center gap-2 rounded-full border border-violet-500/20 bg-violet-500/[0.07] px-4 py-2 shadow-[0_0_20px_rgba(124,58,237,0.1)] backdrop-blur-xl">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-violet-400" />
+              <svg className="h-4 w-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z" />
+              </svg>
               <span className="text-sm font-medium text-violet-400">
                 {t("howWeWork.badge")}
               </span>
@@ -192,31 +194,50 @@ export default function HowWeWork() {
 
         {/* ── Callout Banner ── */}
         <ScrollReveal delay={0.6}>
-          <div className="relative mt-12 overflow-hidden rounded-2xl">
+          <div className="group/callout relative mt-12 cursor-pointer overflow-hidden rounded-2xl">
             {/* Animated shimmer border */}
-            <div className="absolute inset-0 rounded-2xl bg-[conic-gradient(from_var(--shimmer-angle,0deg),transparent_40%,rgba(124,58,237,0.4)_50%,transparent_60%)] p-px animate-[shimmer-rotate_4s_linear_infinite]">
+            <div className="absolute inset-0 rounded-2xl bg-[conic-gradient(from_var(--shimmer-angle,0deg),transparent_30%,rgba(124,58,237,0.5)_45%,rgba(6,182,212,0.4)_55%,transparent_70%)] p-px animate-[shimmer-rotate_4s_linear_infinite]">
               <div className="h-full w-full rounded-[15px] bg-[#0a0a0f]" />
             </div>
 
             {/* Inner glow */}
-            <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-r from-violet-500/[0.04] via-transparent to-purple-500/[0.04]" />
+            <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-violet-500/[0.06] via-transparent to-cyan-500/[0.04] transition-all duration-500 group-hover/callout:from-violet-500/[0.1] group-hover/callout:to-cyan-500/[0.06]" />
 
-            <div className="relative flex items-start gap-4 p-6 sm:gap-5 sm:p-8 lg:items-center lg:p-10">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500/20 to-purple-500/10 text-violet-400 shadow-[0_0_20px_rgba(124,58,237,0.15)]">
-                {/* AI Agent / Robot icon */}
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 2.25a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75Z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 8.25h13.5A2.25 2.25 0 0 1 21 10.5v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 16.5v-6a2.25 2.25 0 0 1 2.25-2.25Z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM15 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 16.5h6" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21v-2.25M16.5 21v-2.25" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M1.5 13.5h1.5M21 13.5h1.5" />
-                </svg>
+            <div className="relative flex flex-col gap-5 p-6 sm:p-8 lg:flex-row lg:items-center lg:gap-8 lg:p-10">
+              {/* Interactive robot icon */}
+              <div className="flex shrink-0 items-center gap-4 lg:flex-col lg:gap-3">
+                <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-violet-500/20 bg-gradient-to-br from-violet-500/15 to-purple-500/10 text-violet-400 shadow-[0_0_30px_rgba(124,58,237,0.2)] transition-all duration-500 group-hover/callout:scale-110 group-hover/callout:shadow-[0_0_40px_rgba(124,58,237,0.35)]">
+                  {/* Pulse ring */}
+                  <span className="absolute inset-0 animate-ping rounded-2xl bg-violet-500/10" style={{ animationDuration: "3s" }} />
+                  {/* Robot */}
+                  <svg className="relative h-8 w-8 transition-transform duration-500 group-hover/callout:rotate-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 2.25a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75Z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 8.25h13.5A2.25 2.25 0 0 1 21 10.5v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 16.5v-6a2.25 2.25 0 0 1 2.25-2.25Z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM15 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 16.5h6" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21v-2.25M16.5 21v-2.25" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M1.5 13.5h1.5M21 13.5h1.5" />
+                  </svg>
+                </div>
+                {/* Live status indicator */}
+                <div className="flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/[0.08] px-3 py-1">
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                  </span>
+                  <span className="text-xs font-medium text-emerald-400">{t("howWeWork.calloutStatus")}</span>
+                </div>
               </div>
 
-              <p className="text-sm leading-relaxed text-gray-300 sm:text-base lg:text-lg">
-                {t("howWeWork.callout")}
-              </p>
+              {/* Text content */}
+              <div className="flex flex-col gap-2">
+                <h4 className="text-lg font-bold text-white sm:text-xl lg:text-2xl">
+                  {t("howWeWork.calloutTitle")}
+                </h4>
+                <p className="text-sm leading-relaxed text-gray-400 sm:text-base">
+                  {t("howWeWork.callout")}
+                </p>
+              </div>
             </div>
           </div>
         </ScrollReveal>

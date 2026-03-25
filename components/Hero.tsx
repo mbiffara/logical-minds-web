@@ -33,7 +33,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative flex h-[100dvh] max-h-[900px] min-h-[600px] items-center justify-center overflow-hidden">
+    <section className="relative flex h-[90dvh] max-h-[900px] min-h-[600px] items-center justify-center overflow-hidden">
       {/* Floating Lines background */}
       <FloatingLines
         linesGradient={["#7c3aed", "#a855f7", "#c084fc", "#8b5cf6", "#7c3aed"]}
@@ -106,7 +106,7 @@ export default function Hero() {
             className="group/btn relative inline-flex w-full cursor-pointer overflow-hidden rounded-full border border-white/[0.1] bg-white/[0.05] backdrop-blur-xl transition-all duration-500 hover:border-violet-500/30 hover:bg-white/[0.08] hover:shadow-[0_8px_40px_rgba(124,58,237,0.12)] sm:w-auto"
           >
             <span className="absolute inset-0 bg-gradient-to-r from-transparent via-violet-500/[0.06] to-transparent opacity-0 transition-opacity duration-500 group-hover/btn:opacity-100" />
-            <span className="relative flex items-center justify-center gap-2 px-6 py-2.5 text-base font-semibold text-white sm:px-8 lg:px-10 lg:py-3">
+            <span className="relative flex w-full items-center justify-center gap-2 px-6 py-2.5 text-base font-semibold text-white sm:px-8 lg:px-10 lg:py-3">
               {t("hero.cta")}
               <svg className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
@@ -114,15 +114,20 @@ export default function Hero() {
             </span>
           </button>
           <a
-            href="#portfolio"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById("portfolio")?.scrollIntoView({ behavior: "smooth" });
-            }}
-            className="group/btn relative inline-flex w-full cursor-pointer overflow-hidden rounded-full border border-white/[0.1] bg-white/[0.05] backdrop-blur-xl transition-all duration-500 hover:border-violet-500/30 hover:bg-white/[0.08] hover:shadow-[0_8px_40px_rgba(124,58,237,0.12)] sm:w-auto"
+            href="/mvp-in-8-weeks"
+            className="group/btn relative inline-flex w-full cursor-pointer overflow-hidden rounded-full p-px sm:w-auto"
           >
-            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-violet-500/[0.06] to-transparent opacity-0 transition-opacity duration-500 group-hover/btn:opacity-100" />
-            <span className="relative flex items-center justify-center gap-2 px-6 py-2.5 text-base font-semibold text-white sm:px-8 lg:px-10 lg:py-3">
+            {/* Animated shimmer border */}
+            <span
+              className="absolute inset-0 rounded-full animate-[shimmer-rotate_3s_linear_infinite]"
+              style={{
+                background: "conic-gradient(from var(--shimmer-angle), transparent 40%, #8b5cf6 50%, #06b6d4 55%, transparent 60%)",
+              }}
+            />
+            <span className="relative flex w-full items-center justify-center gap-2 rounded-full bg-[#0a0a0f]/90 px-6 py-2.5 text-sm font-semibold text-violet-200 backdrop-blur-xl transition-all duration-500 group-hover/btn:bg-violet-500/[0.12] sm:px-8 sm:text-base lg:px-10 lg:py-3">
+              <svg className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+              </svg>
               {t("hero.ctaSecondary")}
             </span>
           </a>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
 interface SplitTextProps {
@@ -32,12 +32,19 @@ export default function SplitText({
 }: SplitTextProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const hasAnimated = useRef(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
+
+  // On mobile, force "words" split to reduce animated elements
+  const effectiveSplit = isMobile ? "words" : splitType;
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    // Reset on text change so animation can replay
     hasAnimated.current = false;
 
     const elements = container.querySelectorAll(".split-element");
@@ -51,7 +58,7 @@ export default function SplitText({
             ...to,
             duration,
             ease,
-            stagger: splitType === "chars" ? 0.03 : 0.08,
+            stagger: effectiveSplit === "chars" ? 0.03 : 0.08,
             delay,
             onComplete,
           });
@@ -63,9 +70,9 @@ export default function SplitText({
 
     observer.observe(container);
     return () => observer.disconnect();
-  }, [text, delay, duration, ease, splitType, from, to, threshold, rootMargin, onComplete]);
+  }, [text, delay, duration, ease, effectiveSplit, from, to, threshold, rootMargin, onComplete]);
 
-  const items = splitType === "chars" ? text.split("") : text.split(" ");
+  const items = effectiveSplit === "chars" ? text.split("") : text.split(" ");
 
   return (
     <div ref={containerRef} className={`inline-block ${className}`}>
@@ -76,7 +83,7 @@ export default function SplitText({
           style={{ whiteSpace: item === " " ? "pre" : undefined }}
         >
           {item}
-          {splitType === "words" && i < items.length - 1 ? "\u00A0" : ""}
+          {effectiveSplit === "words" && i < items.length - 1 ? "\u00A0" : ""}
         </span>
       ))}
     </div>

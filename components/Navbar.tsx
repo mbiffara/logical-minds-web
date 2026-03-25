@@ -79,15 +79,11 @@ export default function Navbar() {
           link,
           {
             y: "110%",
-            rotateX: 50,
             opacity: 0,
-            filter: "blur(12px)",
           },
           {
             y: "0%",
-            rotateX: 0,
             opacity: 1,
-            filter: "blur(0px)",
             duration: 0.65,
             ease: "power4.out",
           },
@@ -135,8 +131,8 @@ export default function Navbar() {
       // Footer fade + slide in
       tl.fromTo(
         footerRef.current,
-        { y: 30, opacity: 0, filter: "blur(6px)" },
-        { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.45, ease: "power3.out" },
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" },
         0.6
       );
     });
@@ -147,15 +143,13 @@ export default function Navbar() {
       onComplete: () => setMenuOpen(false),
     });
 
-    // Links fly out upward with blur
+    // Links fly out upward
     linksRef.current.filter(Boolean).forEach((link, i) => {
       tl.to(
         link,
         {
           y: "-110%",
-          rotateX: -30,
           opacity: 0,
-          filter: "blur(8px)",
           duration: 0.4,
           ease: "power3.in",
         },
@@ -191,7 +185,7 @@ export default function Navbar() {
     );
 
     // Footer out
-    tl.to(footerRef.current, { y: 20, opacity: 0, filter: "blur(6px)", duration: 0.3 }, 0);
+    tl.to(footerRef.current, { y: 20, opacity: 0, duration: 0.3 }, 0);
 
     // Line shrink
     tl.to(lineRef.current, { scaleX: 0, duration: 0.4, ease: "power3.in" }, 0.1);
@@ -248,7 +242,7 @@ export default function Navbar() {
                   alt="Logical Minds"
                   width={160}
                   height={22}
-                  className="h-6 w-auto"
+                  className="h-5 w-auto sm:h-6"
                 />
               </a>
 

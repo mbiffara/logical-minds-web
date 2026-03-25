@@ -22,20 +22,26 @@ export default function ScrollFloat({
     const el = ref.current;
     if (!el) return;
 
-    const handleScroll = () => {
-      const rect = el.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      const progress = Math.max(
-        0,
-        Math.min(1, (windowHeight - rect.top) / (windowHeight + rect.height))
-      );
-      const y = (1 - progress) * offsetY;
-      gsap.to(el, { y, duration, ease: "power1.out", overwrite: true });
-    };
+    // Use IntersectionObserver instead of scroll listener to avoid layout thrashing
+    gsap.set(el, { y: offsetY, opacity: 0 });
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          gsap.to(el, {
+            y: 0,
+            opacity: 1,
+            duration,
+            ease: "power2.out",
+          });
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1, rootMargin: "-50px" }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
   }, [offsetY, duration]);
 
   return (

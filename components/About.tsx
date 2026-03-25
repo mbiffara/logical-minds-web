@@ -50,7 +50,7 @@ export default function About() {
               {/* Founder Badge */}
               <ScrollReveal>
                 <a
-                  href="https://www.linkedin.com/in/marcelo-biffara-51156a37/"
+                  href="https://calendly.com/logicalminds/marcelo-1-hr-session?month=2026-03&duration=30"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group/badge inline-flex items-center gap-3 rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl px-3 py-2.5 transition-all duration-300 hover:border-violet-500/30 hover:bg-white/[0.06] hover:shadow-[0_0_30px_rgba(124,58,237,0.15)]"

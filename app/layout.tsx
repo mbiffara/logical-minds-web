@@ -14,11 +14,11 @@ const siteUrl = "https://logicalminds.ai";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Logical Minds — Award-Winning AI-First Software Factory | Buenos Aires & LATAM",
+    default: "Logical Minds — AI-First Software Factory | Buenos Aires & LATAM",
     template: "%s — Logical Minds",
   },
   description:
-    "Award-winning AI-first software factory based in Buenos Aires, serving LATAM & globally. We craft intelligent digital products — from product discovery & UX/UI design to full-stack development, cloud infrastructure, and AI integration. Recognized for design excellence.",
+    "AI-first software factory based in Buenos Aires, serving LATAM & globally. We craft intelligent digital products — from product discovery & UX/UI design to full-stack development, cloud infrastructure, and AI integration.",
   keywords: [
     "software factory Buenos Aires",
     "AI software development",
@@ -31,8 +31,6 @@ export const metadata: Metadata = {
     "AI integration",
     "machine learning",
     "cloud infrastructure",
-    "award-winning software",
-    "Awwwards",
     "product design",
     "software consulting",
     "Buenos Aires tech",
@@ -51,9 +49,9 @@ export const metadata: Metadata = {
     alternateLocale: "es_AR",
     url: siteUrl,
     siteName: "Logical Minds",
-    title: "Logical Minds — Award-Winning AI-First Software Factory",
+    title: "Logical Minds — AI-First Software Factory",
     description:
-      "Award-winning AI-first software factory based in Buenos Aires. Product discovery, UX/UI design, full-stack development, and AI integration for companies worldwide.",
+      "AI-first software factory based in Buenos Aires. Product discovery, UX/UI design, full-stack development, and AI integration for companies worldwide.",
     images: [
       {
         url: `${siteUrl}/og-image.png`,
@@ -65,9 +63,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Logical Minds — Award-Winning AI-First Software Factory",
+    title: "Logical Minds — AI-First Software Factory",
     description:
-      "Award-winning AI-first software factory from Buenos Aires. We build intelligent digital products for companies across LATAM & globally.",
+      "AI-first software factory from Buenos Aires. We build intelligent digital products for companies across LATAM & globally.",
     images: [`${siteUrl}/og-image.png`],
   },
   robots: {
@@ -91,7 +89,7 @@ const jsonLd = {
   url: siteUrl,
   logo: `${siteUrl}/logo-logical-minds.svg`,
   description:
-    "Award-winning AI-first software factory based in Buenos Aires, Argentina. Specializing in product discovery, UX/UI design, full-stack development, cloud infrastructure, and AI integration.",
+    "AI-first software factory based in Buenos Aires, Argentina. Specializing in product discovery, UX/UI design, full-stack development, cloud infrastructure, and AI integration.",
   foundingLocation: {
     "@type": "Place",
     name: "Buenos Aires, Argentina",

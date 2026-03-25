@@ -4,7 +4,7 @@ import { useRef, useEffect, useMemo } from "react";
 import gsap from "gsap";
 import { useLanguage } from "@/context/LanguageContext";
 
-const PHRASE_KEYS = ["a", "b", "c", "d", "e", "f", "g", "h", "i"] as const;
+const PHRASE_KEYS = ["a", "b", "c", "d", "e", "f"] as const;
 
 /**
  * Single marquee row — renders phrases 4× for seamless infinite loop.
@@ -17,44 +17,39 @@ function MarqueeRow({
   phrases: string[];
   outlineIndices: number[];
 }) {
-  // 4 copies for seamless looping (animate -25% to loop one full set)
-  const items = Array(4)
-    .fill(phrases)
-    .flat();
-
   return (
     <>
-      {items.map((phrase, i) => {
-        const isOutline = outlineIndices.includes(i % phrases.length);
-
-        return (
-          <div key={i} className="flex shrink-0 items-center">
-            {/* Glowing separator dot */}
-            <span className="mx-4 sm:mx-6 md:mx-8 flex items-center" aria-hidden="true">
-              <svg className="h-7 w-7 text-violet-400 drop-shadow-[0_0_8px_rgba(124,58,237,0.7)] sm:h-8 sm:w-8 md:h-9 md:w-9" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-              </svg>
-            </span>
-
-            {/* Phrase */}
-            {isOutline ? (
-              <span
-                className="whitespace-nowrap text-3xl font-bold tracking-tight select-none sm:text-4xl md:text-5xl lg:text-6xl"
-                style={{
-                  WebkitTextStroke: "1.5px rgba(255,255,255,0.2)",
-                  color: "transparent",
-                }}
-              >
-                {phrase}
-              </span>
-            ) : (
-              <span className="whitespace-nowrap bg-gradient-to-r from-white via-gray-200 to-white/80 bg-clip-text text-3xl font-bold tracking-tight text-transparent select-none sm:text-4xl md:text-5xl lg:text-6xl">
-                {phrase}
-              </span>
-            )}
-          </div>
-        );
-      })}
+      {[0, 1].map((copy) => (
+        <div key={copy} className="flex shrink-0" aria-hidden={copy > 0 || undefined}>
+          {phrases.map((phrase, i) => {
+            const isOutline = outlineIndices.includes(i);
+            return (
+              <div key={i} className="flex shrink-0 items-center">
+                <span className="mx-4 sm:mx-6 md:mx-8 flex items-center" aria-hidden="true">
+                  <svg className="h-7 w-7 text-violet-400 drop-shadow-[0_0_8px_rgba(124,58,237,0.7)] sm:h-8 sm:w-8 md:h-9 md:w-9" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                  </svg>
+                </span>
+                {isOutline ? (
+                  <span
+                    className="whitespace-nowrap text-3xl font-bold tracking-tight select-none sm:text-4xl md:text-5xl lg:text-6xl"
+                    style={{
+                      WebkitTextStroke: "1.5px rgba(255,255,255,0.2)",
+                      color: "transparent",
+                    }}
+                  >
+                    {phrase}
+                  </span>
+                ) : (
+                  <span className="whitespace-nowrap bg-gradient-to-r from-white via-gray-200 to-white/80 bg-clip-text text-3xl font-bold tracking-tight text-transparent select-none sm:text-4xl md:text-5xl lg:text-6xl">
+                    {phrase}
+                  </span>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      ))}
     </>
   );
 }
@@ -84,19 +79,25 @@ export default function ScrollMarquee() {
     // Respect prefers-reduced-motion
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // Row 1 → scrolls left:  xPercent 0 → -25 (1 of 4 copies)
+    // Measure the width of the first copy (first child) for pixel-perfect looping
+    const row1Copy = row1.children[0] as HTMLElement;
+    const row2Copy = row2.children[0] as HTMLElement;
+    const w1 = row1Copy.offsetWidth;
+    const w2 = row2Copy.offsetWidth;
+
+    // Row 1 → scrolls left by exactly one copy width
     const tl1 = gsap.to(row1, {
-      xPercent: -25,
-      duration: reduced ? 120 : 30,
+      x: -w1,
+      duration: reduced ? 500 : 160,
       ease: "none",
       repeat: -1,
     });
 
-    // Row 2 → scrolls right: xPercent -25 → 0
+    // Row 2 → scrolls right by exactly one copy width
     const tl2 = gsap.fromTo(
       row2,
-      { xPercent: -25 },
-      { xPercent: 0, duration: reduced ? 140 : 35, ease: "none", repeat: -1 }
+      { x: -w2 },
+      { x: 0, duration: reduced ? 700 : 220, ease: "none", repeat: -1 }
     );
 
     // If reduced motion, skip velocity effects
@@ -146,11 +147,11 @@ export default function ScrollMarquee() {
       window.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(rafId);
     };
-  }, []);
+  }, [row1Phrases, row2Phrases]);
 
   return (
     <section
-      className="relative overflow-hidden py-16 sm:py-24"
+      className="relative py-10 sm:py-16"
       aria-hidden="true"
     >
       {/* Subtle purple atmosphere */}
@@ -167,6 +168,7 @@ export default function ScrollMarquee() {
 
       {/* Edge fade mask */}
       <div
+        className="overflow-x-clip"
         style={{
           maskImage:
             "linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%)",
@@ -176,13 +178,13 @@ export default function ScrollMarquee() {
       >
         <div ref={containerRef} className="space-y-6 sm:space-y-10 will-change-transform">
           {/* Row 1 — scrolls left */}
-          <div ref={row1Ref} className="flex will-change-transform">
-            <MarqueeRow phrases={row1Phrases} outlineIndices={[1, 3, 5, 7]} />
+          <div ref={row1Ref} className="flex py-2 will-change-transform">
+            <MarqueeRow phrases={row1Phrases} outlineIndices={[1, 3, 5]} />
           </div>
 
           {/* Row 2 — scrolls right */}
-          <div ref={row2Ref} className="flex will-change-transform">
-            <MarqueeRow phrases={row2Phrases} outlineIndices={[0, 2, 4, 6, 8]} />
+          <div ref={row2Ref} className="flex py-2 will-change-transform">
+            <MarqueeRow phrases={row2Phrases} outlineIndices={[0, 2, 4]} />
           </div>
         </div>
       </div>

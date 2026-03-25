@@ -1,15 +1,20 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import createGlobe from "cobe";
 
 const MARKERS = [
-  { location: [-34.6037, -58.3816] as [number, number], size: 0.05 },
-  { location: [40.7128, -74.006] as [number, number], size: 0.05 },
+  { location: [-34.6037, -58.3816] as [number, number], size: 0.05, id: "bsas" },
+  { location: [40.7128, -74.006] as [number, number], size: 0.05, id: "nyc" },
 ];
 
-// phi ≈ 4.9 faces the Americas (~80°W longitude)
-const BASE_PHI = 4.9;
+const MARKER_INFO: Record<string, { label: string; flag: string; subtitle: string }> = {
+  bsas: { label: "Buenos Aires, AR", flag: "🇦🇷", subtitle: "HQ" },
+  nyc: { label: "New York, US", flag: "🇺🇸", subtitle: "Office" },
+};
+
+// phi ≈ 4.65 centers between Buenos Aires (-58°W) and New York (-74°W)
+const BASE_PHI = 4.65;
 const THETA = 0.05;
 
 export default function Globe() {
@@ -18,6 +23,7 @@ export default function Globe() {
   const pointerDown = useRef<{ x: number; y: number } | null>(null);
   const pointerOffset = useRef({ x: 0, y: 0 });
   const autoRotation = useRef(0);
+  const [activeMarker, setActiveMarker] = useState<string | null>(null);
 
   const onPointerDownHandler = useCallback((e: React.PointerEvent) => {
     pointerDown.current = {
@@ -80,7 +86,7 @@ export default function Globe() {
     let frameId: number;
     const render = () => {
       const w = getWidth() * dpr;
-      autoRotation.current += 0.002;
+      autoRotation.current += 0.0005;
       globe.update({
         phi: BASE_PHI + autoRotation.current + pointerOffset.current.x / 200,
         theta: THETA + pointerOffset.current.y / 300,
@@ -101,10 +107,46 @@ export default function Globe() {
     };
   }, []);
 
+  const handleMarkerClick = useCallback((id: string) => {
+    setActiveMarker((prev) => (prev === id ? null : id));
+  }, []);
+
+  const handleDismiss = useCallback(() => {
+    setActiveMarker(null);
+  }, []);
+
   return (
     <div className="relative flex flex-col items-center">
+      <style>{`
+        .marker-overlay {
+          position: absolute;
+          translate: -50% -50%;
+          pointer-events: auto;
+          transition: opacity 0.3s, filter 0.3s;
+          z-index: 10;
+        }
+        .marker-overlay-bsas {
+          position-anchor: --cobe-bsas;
+          left: anchor(center);
+          top: anchor(center);
+          opacity: var(--cobe-visible-bsas, 0);
+          filter: blur(calc((1 - var(--cobe-visible-bsas, 0)) * 4px));
+        }
+        .marker-overlay-nyc {
+          position-anchor: --cobe-nyc;
+          left: anchor(center);
+          top: anchor(center);
+          opacity: var(--cobe-visible-nyc, 0);
+          filter: blur(calc((1 - var(--cobe-visible-nyc, 0)) * 4px));
+        }
+      `}</style>
+
       {/* Globe */}
-      <div ref={containerRef} className="relative aspect-square w-full max-w-[500px]">
+      <div
+        ref={containerRef}
+        className="relative aspect-square w-full max-w-[500px]"
+        onClick={handleDismiss}
+      >
         {/* Ambient glow behind globe */}
         <div className="pointer-events-none absolute inset-0 rounded-full bg-violet-500/[0.06] blur-3xl" />
 
@@ -117,18 +159,55 @@ export default function Globe() {
           onTouchMove={onTouchMoveHandler}
           className="absolute inset-0 h-full w-full cursor-grab opacity-0 transition-opacity duration-1000"
         />
-      </div>
 
-      {/* Location labels */}
-      <div className="mt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
-        <div className="flex items-center gap-2">
-          <span className="text-2xl leading-none">🇦🇷</span>
-          <span className="text-sm text-gray-400">Buenos Aires, AR</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-2xl leading-none">🇺🇸</span>
-          <span className="text-sm text-gray-400">New York, US</span>
-        </div>
+        {/* Marker overlays — anchored to cobe markers via CSS Anchor Positioning */}
+        {MARKERS.map((marker) => {
+          const info = MARKER_INFO[marker.id];
+          const isActive = activeMarker === marker.id;
+          return (
+            <div
+              key={marker.id}
+              className={`marker-overlay marker-overlay-${marker.id} group`}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleMarkerClick(marker.id);
+              }}
+              onMouseEnter={() => setActiveMarker(marker.id)}
+              onMouseLeave={() => setActiveMarker(null)}
+            >
+              {/* Pulsing dot */}
+              <div className="relative flex h-5 w-5 cursor-pointer items-center justify-center">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400/40" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-violet-400 shadow-[0_0_8px_rgba(139,92,246,0.6)]" />
+              </div>
+
+              {/* Tooltip */}
+              <div
+                className={`
+                  pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2
+                  whitespace-nowrap rounded-lg border border-white/10
+                  bg-[#0a0a0f]/80 px-3 py-2 backdrop-blur-xl
+                  shadow-[0_0_20px_rgba(124,58,237,0.2)]
+                  transition-all duration-200
+                  ${isActive
+                    ? "translate-y-0 scale-100 opacity-100"
+                    : "translate-y-1 scale-95 opacity-0"
+                  }
+                `}
+              >
+                <div className="flex items-center gap-2">
+                  <span className="text-lg leading-none">{info.flag}</span>
+                  <div>
+                    <p className="text-sm font-medium text-white">{info.label}</p>
+                    <p className="text-xs text-violet-300/70">{info.subtitle}</p>
+                  </div>
+                </div>
+                {/* Tooltip arrow */}
+                <div className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-white/10" />
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
