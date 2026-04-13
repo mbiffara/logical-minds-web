@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 import { useContact } from "@/context/ContactContext";
 
-const navLinks = ["services", "about", "portfolio", "partners", "contact"] as const;
+const navLinks = ["services", "about", "portfolio", "contact"] as const;
 
 export default function Footer() {
   const { t } = useLanguage();
@@ -25,13 +25,13 @@ export default function Footer() {
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
             <img
-              src="/logo-logical-minds.svg"
+              src="/logo-logical-minds-light.svg"
               alt="Logical Minds"
               width={160}
               height={22}
               className="h-6 w-auto"
             />
-            <p className="mt-3 text-sm text-gray-500">{t("footer.tagline")}</p>
+            <p className="mt-3 text-sm text-gray-400">{t("footer.tagline")}</p>
           </div>
 
           {/* Quick links */}
@@ -44,7 +44,7 @@ export default function Footer() {
                 <li key={link}>
                   <button
                     onClick={() => handleClick(link)}
-                    className="group/link inline-flex items-center gap-1 text-sm text-gray-500 transition-colors hover:text-white cursor-pointer"
+                    className="group/link inline-flex items-center gap-1 text-sm text-gray-500 transition-colors hover:text-violet-400 cursor-pointer"
                   >
                     {t(`nav.${link}`)}
                     <svg className="h-3 w-3 opacity-0 transition-all duration-300 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
@@ -65,7 +65,7 @@ export default function Footer() {
                 <li key={link}>
                   <button
                     onClick={() => handleClick(link)}
-                    className="group/link inline-flex items-center gap-1 text-sm text-gray-500 transition-colors hover:text-white cursor-pointer"
+                    className="group/link inline-flex items-center gap-1 text-sm text-gray-500 transition-colors hover:text-violet-400 cursor-pointer"
                   >
                     {t(`nav.${link}`)}
                     <svg className="h-3 w-3 opacity-0 transition-all duration-300 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
@@ -77,7 +77,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/mvp-in-8-weeks"
-                  className="group/link inline-flex items-center gap-1 text-sm text-gray-500 transition-colors hover:text-white cursor-pointer"
+                  className="group/link inline-flex items-center gap-1 text-sm text-gray-500 transition-colors hover:text-violet-400 cursor-pointer"
                 >
                   {t("footer.links.mvp")}
                   <svg className="h-3 w-3 opacity-0 transition-all duration-300 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
@@ -94,12 +94,12 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-sm text-gray-500 transition-colors duration-300 hover:text-white cursor-pointer">
+                <a href="#" className="text-sm text-gray-500 transition-colors duration-300 hover:text-violet-400 cursor-pointer">
                   {t("footer.links.privacy")}
                 </a>
               </li>
               <li>
-                <a href="#" className="text-sm text-gray-500 transition-colors duration-300 hover:text-white cursor-pointer">
+                <a href="#" className="text-sm text-gray-500 transition-colors duration-300 hover:text-violet-400 cursor-pointer">
                   {t("footer.links.terms")}
                 </a>
               </li>
@@ -125,7 +125,7 @@ export default function Footer() {
               <a
                 key={social.name}
                 href="#"
-                className="text-gray-600 transition-colors duration-300 hover:text-white cursor-pointer"
+                className="text-gray-600 transition-colors duration-300 hover:text-violet-400 cursor-pointer"
                 aria-label={social.name}
               >
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">

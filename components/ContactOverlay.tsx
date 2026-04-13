@@ -29,10 +29,10 @@ const deadlineKeys = [
 ] as const;
 
 const inputClass =
-  "w-full rounded-xl border border-white/[0.08] bg-white/[0.04] backdrop-blur-lg px-4 py-3 text-sm text-white placeholder-gray-600 outline-none transition-all duration-300 focus:border-violet-500/50 focus:bg-white/[0.06] focus:shadow-[0_0_20px_rgba(124,58,237,0.1)] focus:ring-1 focus:ring-violet-500/50 sm:text-base";
+  "w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 outline-none transition-all duration-300 focus:border-violet-500 focus:bg-white focus:shadow-[0_0_20px_rgba(124,58,237,0.08)] focus:ring-1 focus:ring-violet-500 sm:text-base";
 
 const selectClass =
-  "w-full rounded-xl border border-white/[0.08] bg-white/[0.04] backdrop-blur-lg px-4 py-3 text-sm text-white outline-none transition-all duration-300 focus:border-violet-500/50 focus:bg-white/[0.06] focus:shadow-[0_0_20px_rgba(124,58,237,0.1)] focus:ring-1 focus:ring-violet-500/50 appearance-none cursor-pointer [&>option]:bg-[#0a0a0f] [&>option]:text-white sm:text-base";
+  "w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition-all duration-300 focus:border-violet-500 focus:bg-white focus:shadow-[0_0_20px_rgba(124,58,237,0.08)] focus:ring-1 focus:ring-violet-500 appearance-none cursor-pointer [&>option]:bg-white [&>option]:text-gray-900 sm:text-base";
 
 const socials = [
   {
@@ -246,31 +246,23 @@ export default function ContactOverlay() {
       className="fixed inset-0 z-[55] flex flex-col overflow-y-auto opacity-0"
       style={{
         background:
-          "radial-gradient(ellipse at 30% 20%, rgba(124,58,237,0.12) 0%, transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(168,85,247,0.08) 0%, transparent 50%), rgba(5,5,10,0.97)",
+          "radial-gradient(ellipse at 30% 20%, rgba(124,58,237,0.06) 0%, transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(168,85,247,0.04) 0%, transparent 50%), #f8f9fc",
       }}
     >
       {/* Grid texture */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.02]"
+        className="pointer-events-none absolute inset-0 opacity-[0.04]"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
+            "linear-gradient(rgba(139,92,246,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,0.15) 1px, transparent 1px)",
           backgroundSize: "60px 60px",
-        }}
-      />
-
-      {/* Grain texture */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`,
         }}
       />
 
       {/* Close button */}
       <button
         onClick={animateClose}
-        className="fixed right-4 top-4 z-[60] flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.05] text-gray-400 backdrop-blur-lg transition-all hover:border-violet-500/30 hover:bg-white/[0.1] hover:text-white hover:shadow-[0_0_20px_rgba(124,58,237,0.15)] sm:right-6 sm:top-6"
+        className="fixed right-4 top-4 z-[60] flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl border border-gray-200 bg-white/60 text-gray-400 backdrop-blur-lg transition-all hover:border-violet-300 hover:bg-white hover:text-gray-900 hover:shadow-[0_0_20px_rgba(124,58,237,0.1)] sm:right-6 sm:top-6"
         aria-label="Close contact"
       >
         <svg
@@ -298,27 +290,27 @@ export default function ContactOverlay() {
             style={{ opacity: 0 }}
           >
             {/* Title */}
-            <h2 className="bg-gradient-to-r from-white via-violet-200 to-purple-400 bg-clip-text text-2xl font-bold text-transparent sm:text-3xl lg:text-4xl">
+            <h2 className="bg-gradient-to-r from-gray-900 via-violet-600 to-purple-600 bg-clip-text text-2xl font-bold text-transparent sm:text-3xl lg:text-4xl">
               {t("contact.title")}
             </h2>
 
             {/* Subtitle */}
-            <p className="mt-3 text-sm leading-relaxed text-gray-400 sm:text-base lg:text-lg">
+            <p className="mt-3 text-sm leading-relaxed text-gray-600 sm:text-base lg:text-lg">
               {t("contact.subtitle")}
             </p>
 
             {/* Description */}
-            <p className="mt-2 text-xs leading-relaxed text-gray-500 sm:text-sm">
+            <p className="mt-2 text-xs leading-relaxed text-gray-400 sm:text-sm">
               {t("contact.description")}
             </p>
 
             {/* AI Agents callout — shimmer border */}
             <div className="relative mt-6 overflow-hidden rounded-xl">
               <div className="absolute inset-0 rounded-xl bg-[conic-gradient(from_var(--shimmer-angle,0deg),transparent_40%,rgba(124,58,237,0.35)_50%,transparent_60%)] p-px animate-[shimmer-rotate_4s_linear_infinite]">
-                <div className="h-full w-full rounded-[11px] bg-[#08080d]" />
+                <div className="h-full w-full rounded-[11px] bg-white" />
               </div>
               <div className="relative flex items-start gap-3 px-4 py-3.5">
-                <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-violet-500/15 text-violet-400 shadow-[0_0_15px_rgba(124,58,237,0.1)]">
+                <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-violet-500/10 text-violet-500 shadow-[0_0_15px_rgba(124,58,237,0.08)]">
                   <svg
                     className="h-4 w-4"
                     fill="none"
@@ -333,8 +325,8 @@ export default function ContactOverlay() {
                     />
                   </svg>
                 </div>
-                <p className="text-xs leading-relaxed text-gray-400">
-                  <span className="font-medium text-violet-300">
+                <p className="text-xs leading-relaxed text-gray-500">
+                  <span className="font-medium text-violet-600">
                     {t("contact.aiAgents.highlight")}
                   </span>{" "}
                   {t("contact.aiAgents.text")}
@@ -343,21 +335,21 @@ export default function ContactOverlay() {
             </div>
 
             {/* Response time badge */}
-            <div className="mt-4 inline-flex w-fit items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/[0.06] px-3.5 py-1.5">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
-              <span className="text-xs font-medium text-emerald-400">
+            <div className="mt-4 inline-flex w-fit items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3.5 py-1.5">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
+              <span className="text-xs font-medium text-emerald-600">
                 {t("contact.responseTime")}
               </span>
             </div>
 
             {/* Gradient divider */}
-            <div className="my-6 h-px bg-gradient-to-r from-violet-500/40 via-purple-500/20 to-transparent" />
+            <div className="my-6 h-px bg-gradient-to-r from-violet-300/60 via-purple-200/30 to-transparent" />
 
             {/* Contact info — glassmorphism cards */}
             <div className="flex flex-col gap-3">
               {/* Email */}
-              <div className="group flex items-center gap-4 rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3 transition-all duration-300 hover:border-violet-500/20 hover:bg-white/[0.04]">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-violet-500/10 text-violet-400 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(124,58,237,0.15)]">
+              <div className="group flex items-center gap-4 rounded-xl border border-gray-200 bg-white/60 px-4 py-3 transition-all duration-300 hover:border-violet-300 hover:bg-white hover:shadow-[0_4px_20px_rgba(124,58,237,0.06)]">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-violet-50 text-violet-500 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(124,58,237,0.1)]">
                   <svg
                     className="h-4 w-4"
                     fill="none"
@@ -373,18 +365,18 @@ export default function ContactOverlay() {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-[11px] uppercase tracking-wider text-gray-600">
+                  <p className="text-[11px] uppercase tracking-wider text-gray-400">
                     {t("contact.info.emailLabel")}
                   </p>
-                  <p className="text-sm text-white">
+                  <p className="text-sm text-gray-900">
                     {t("contact.info.email")}
                   </p>
                 </div>
               </div>
 
               {/* Phone */}
-              <div className="group flex items-center gap-4 rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3 transition-all duration-300 hover:border-violet-500/20 hover:bg-white/[0.04]">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-violet-500/10 text-violet-400 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(124,58,237,0.15)]">
+              <div className="group flex items-center gap-4 rounded-xl border border-gray-200 bg-white/60 px-4 py-3 transition-all duration-300 hover:border-violet-300 hover:bg-white hover:shadow-[0_4px_20px_rgba(124,58,237,0.06)]">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-violet-50 text-violet-500 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(124,58,237,0.1)]">
                   <svg
                     className="h-4 w-4"
                     fill="none"
@@ -400,18 +392,18 @@ export default function ContactOverlay() {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-[11px] uppercase tracking-wider text-gray-600">
+                  <p className="text-[11px] uppercase tracking-wider text-gray-400">
                     {t("contact.info.phoneLabel")}
                   </p>
-                  <p className="text-sm text-white">
+                  <p className="text-sm text-gray-900">
                     {t("contact.info.phone")}
                   </p>
                 </div>
               </div>
 
               {/* Location */}
-              <div className="group flex items-center gap-4 rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3 transition-all duration-300 hover:border-violet-500/20 hover:bg-white/[0.04]">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-violet-500/10 text-violet-400 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(124,58,237,0.15)]">
+              <div className="group flex items-center gap-4 rounded-xl border border-gray-200 bg-white/60 px-4 py-3 transition-all duration-300 hover:border-violet-300 hover:bg-white hover:shadow-[0_4px_20px_rgba(124,58,237,0.06)]">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-violet-50 text-violet-500 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(124,58,237,0.1)]">
                   <svg
                     className="h-4 w-4"
                     fill="none"
@@ -433,10 +425,10 @@ export default function ContactOverlay() {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-[11px] uppercase tracking-wider text-gray-600">
+                  <p className="text-[11px] uppercase tracking-wider text-gray-400">
                     {t("contact.info.locationLabel")}
                   </p>
-                  <p className="text-sm text-white">
+                  <p className="text-sm text-gray-900">
                     {t("contact.info.location")}
                   </p>
                 </div>
@@ -451,7 +443,7 @@ export default function ContactOverlay() {
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg border border-white/[0.06] bg-white/[0.02] text-gray-500 transition-all duration-300 hover:border-violet-500/25 hover:bg-white/[0.06] hover:text-violet-400 hover:shadow-[0_0_15px_rgba(124,58,237,0.1)]"
+                  className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg border border-gray-200 bg-white/60 text-gray-400 transition-all duration-300 hover:border-violet-300 hover:bg-white hover:text-violet-500 hover:shadow-[0_0_15px_rgba(124,58,237,0.08)]"
                   aria-label={s.name}
                 >
                   <svg
@@ -472,7 +464,7 @@ export default function ContactOverlay() {
               ref={formCardRef}
               onSubmit={(e) => e.preventDefault()}
               onMouseMove={handleSpotlight}
-              className="group/form relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-xl transition-all duration-500 hover:border-violet-500/20 sm:p-6 lg:p-8"
+              className="group/form relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-5 shadow-sm backdrop-blur-xl transition-all duration-500 hover:border-violet-300 hover:shadow-[0_8px_40px_rgba(124,58,237,0.08)] sm:p-6 lg:p-8"
               style={{ opacity: 0 }}
             >
               {/* Spotlight */}
@@ -480,22 +472,22 @@ export default function ContactOverlay() {
                 className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover/form:opacity-100"
                 style={{
                   background:
-                    "radial-gradient(600px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(124,58,237,0.05), transparent 60%)",
+                    "radial-gradient(600px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(124,58,237,0.03), transparent 60%)",
                 }}
               />
 
               {/* Corner glow */}
-              <div className="absolute -right-16 -top-16 h-44 w-44 rounded-full bg-violet-500/[0.03] blur-3xl transition-all duration-700 group-hover/form:bg-violet-500/[0.08]" />
+              <div className="absolute -right-16 -top-16 h-44 w-44 rounded-full bg-violet-500/[0.02] blur-3xl transition-all duration-700 group-hover/form:bg-violet-500/[0.05]" />
 
               {/* Top accent line */}
-              <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-transparent via-violet-500/30 to-transparent" />
+              <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-transparent via-violet-400/40 to-transparent" />
 
               <div className="relative grid gap-5 sm:grid-cols-2">
                 {/* Name */}
                 <div ref={setFieldRef(0)} style={{ opacity: 0 }}>
                   <label
                     htmlFor="contact-name"
-                    className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-500"
+                    className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-400"
                   >
                     {t("contact.form.name")}
                   </label>
@@ -511,7 +503,7 @@ export default function ContactOverlay() {
                 <div ref={setFieldRef(1)} style={{ opacity: 0 }}>
                   <label
                     htmlFor="contact-email"
-                    className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-500"
+                    className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-400"
                   >
                     {t("contact.form.email")}
                   </label>
@@ -527,7 +519,7 @@ export default function ContactOverlay() {
                 <div ref={setFieldRef(2)} style={{ opacity: 0 }}>
                   <label
                     htmlFor="contact-company"
-                    className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-500"
+                    className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-400"
                   >
                     {t("contact.form.company")}
                   </label>
@@ -543,7 +535,7 @@ export default function ContactOverlay() {
                 <div ref={setFieldRef(3)} style={{ opacity: 0 }}>
                   <label
                     htmlFor="contact-phone"
-                    className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-500"
+                    className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-400"
                   >
                     {t("contact.form.phone")}
                   </label>
@@ -559,7 +551,7 @@ export default function ContactOverlay() {
                 <div ref={setFieldRef(4)} style={{ opacity: 0 }}>
                   <label
                     htmlFor="contact-service"
-                    className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-500"
+                    className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-400"
                   >
                     {t("contact.form.service")}
                   </label>
@@ -583,7 +575,7 @@ export default function ContactOverlay() {
                 <div ref={setFieldRef(5)} style={{ opacity: 0 }}>
                   <label
                     htmlFor="contact-budget"
-                    className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-500"
+                    className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-400"
                   >
                     {t("contact.form.budget")}
                   </label>
@@ -607,7 +599,7 @@ export default function ContactOverlay() {
                 <div ref={setFieldRef(6)} style={{ opacity: 0 }}>
                   <label
                     htmlFor="contact-deadline"
-                    className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-500"
+                    className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-400"
                   >
                     {t("contact.form.deadline")}
                   </label>
@@ -635,7 +627,7 @@ export default function ContactOverlay() {
                 >
                   <label
                     htmlFor="contact-message"
-                    className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-500"
+                    className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-400"
                   >
                     {t("contact.form.message")}
                   </label>
@@ -652,9 +644,9 @@ export default function ContactOverlay() {
               <div ref={bottomRef} className="relative mt-8" style={{ opacity: 0 }}>
                 <button
                   type="submit"
-                  className="group/btn relative w-full cursor-pointer overflow-hidden rounded-xl border border-white/[0.1] bg-white/[0.05] backdrop-blur-xl transition-all duration-500 hover:border-violet-500/30 hover:bg-white/[0.08] hover:shadow-[0_8px_40px_rgba(124,58,237,0.12)]"
+                  className="group/btn relative w-full cursor-pointer overflow-hidden rounded-full bg-gradient-to-r from-violet-600 to-violet-500 transition-all duration-500 hover:from-violet-700 hover:to-violet-600 hover:shadow-[0_6px_24px_rgba(124,58,237,0.35)] hover:scale-[1.01] active:scale-[0.99]"
                 >
-                  <span className="absolute inset-0 bg-gradient-to-r from-transparent via-violet-500/[0.06] to-transparent opacity-0 transition-opacity duration-500 group-hover/btn:opacity-100" />
+                  <span className="absolute inset-0 rounded-full bg-gradient-to-r from-white/0 via-white/20 to-white/0 opacity-0 transition-opacity duration-500 group-hover/btn:opacity-100" />
                   <span className="relative flex items-center justify-center gap-2 py-3.5 font-semibold text-white">
                     {t("contact.form.send")}
                     <svg

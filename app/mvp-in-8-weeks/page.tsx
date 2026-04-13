@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { ContactProvider } from "@/context/ContactContext";
+import { ServiceDetailProvider } from "@/context/ServiceDetailContext";
 import Navbar from "@/components/Navbar";
 
 const MvpLanding = dynamic(() => import("@/components/MvpLanding"), { ssr: false });
@@ -13,12 +14,14 @@ export default function MvpPage() {
   return (
     <LanguageProvider>
       <ContactProvider>
-        <Navbar />
-        <main>
-          <MvpLanding />
-        </main>
-        <Footer />
-        <ContactOverlay />
+        <ServiceDetailProvider>
+          <Navbar />
+          <main>
+            <MvpLanding />
+          </main>
+          <Footer />
+          <ContactOverlay />
+        </ServiceDetailProvider>
       </ContactProvider>
     </LanguageProvider>
   );

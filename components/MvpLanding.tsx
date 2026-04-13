@@ -278,9 +278,9 @@ export default function MvpLanding() {
           <div ref={ctaRef} className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row" style={{ opacity: 0 }}>
             <button
               onClick={openContact}
-              className="group/btn relative inline-flex w-full cursor-pointer overflow-hidden rounded-full border border-white/[0.1] bg-white/[0.05] backdrop-blur-xl transition-all duration-500 hover:border-violet-500/30 hover:bg-white/[0.08] hover:shadow-[0_8px_40px_rgba(124,58,237,0.12)] sm:w-auto"
+              className="group/btn relative inline-flex w-full cursor-pointer overflow-hidden rounded-full bg-gradient-to-r from-violet-600 to-violet-500 transition-all duration-500 hover:from-violet-700 hover:to-violet-600 hover:shadow-[0_6px_24px_rgba(124,58,237,0.35)] hover:scale-[1.01] active:scale-[0.99] sm:w-auto"
             >
-              <span className="absolute inset-0 bg-gradient-to-r from-transparent via-violet-500/[0.06] to-transparent opacity-0 transition-opacity duration-500 group-hover/btn:opacity-100" />
+              <span className="absolute inset-0 rounded-full bg-gradient-to-r from-white/0 via-white/20 to-white/0 opacity-0 transition-opacity duration-500 group-hover/btn:opacity-100" />
               <span className="relative flex items-center justify-center gap-2 px-6 py-2.5 text-base font-semibold text-white sm:px-8 lg:px-10 lg:py-3">
                 {t("mvp.hero.cta")}
                 <svg className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
@@ -290,7 +290,7 @@ export default function MvpLanding() {
             </button>
             <button
               onClick={scrollToProcess}
-              className="group/btn relative inline-flex w-full cursor-pointer overflow-hidden rounded-full border border-white/[0.1] bg-white/[0.05] backdrop-blur-xl transition-all duration-500 hover:border-violet-500/30 hover:bg-white/[0.08] hover:shadow-[0_8px_40px_rgba(124,58,237,0.12)] sm:w-auto"
+              className="group/btn relative inline-flex w-full cursor-pointer overflow-hidden rounded-full border border-violet-300 bg-violet-500/[0.07] backdrop-blur-xl transition-all duration-500 hover:border-violet-400 hover:bg-violet-500/[0.12] hover:shadow-[0_0_24px_rgba(139,92,246,0.2)] sm:w-auto"
             >
               <span className="absolute inset-0 bg-gradient-to-r from-transparent via-violet-500/[0.06] to-transparent opacity-0 transition-opacity duration-500 group-hover/btn:opacity-100" />
               <span className="relative flex items-center justify-center gap-2 px-6 py-2.5 text-base font-semibold text-white sm:px-8 lg:px-10 lg:py-3">
@@ -713,9 +713,9 @@ export default function MvpLanding() {
                 <div className="mt-8">
                   <button
                     onClick={openContact}
-                    className="group/btn relative inline-flex cursor-pointer overflow-hidden rounded-full border border-white/[0.1] bg-white/[0.05] backdrop-blur-xl transition-all duration-500 hover:border-violet-500/30 hover:bg-white/[0.08] hover:shadow-[0_8px_40px_rgba(124,58,237,0.12)]"
+                    className="group/btn relative inline-flex cursor-pointer overflow-hidden rounded-full bg-gradient-to-r from-violet-600 to-violet-500 transition-all duration-500 hover:from-violet-700 hover:to-violet-600 hover:shadow-[0_6px_24px_rgba(124,58,237,0.35)] hover:scale-[1.01] active:scale-[0.99]"
                   >
-                    <span className="absolute inset-0 bg-gradient-to-r from-transparent via-violet-500/[0.06] to-transparent opacity-0 transition-opacity duration-500 group-hover/btn:opacity-100" />
+                    <span className="absolute inset-0 rounded-full bg-gradient-to-r from-white/0 via-white/20 to-white/0 opacity-0 transition-opacity duration-500 group-hover/btn:opacity-100" />
                     <span className="relative flex items-center justify-center gap-2 px-6 py-2.5 text-base font-semibold text-white sm:px-8 lg:px-10 lg:py-3">
                       {t("mvp.cta.button")}
                       <svg className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>

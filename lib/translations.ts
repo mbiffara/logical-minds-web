@@ -10,6 +10,7 @@ export const translations: Translations = {
     nav: {
       services: "Services",
       about: "About",
+      howWeWork: "How We Work",
       portfolio: "Portfolio",
       partners: "Partners",
       contact: "Contact",
@@ -21,6 +22,7 @@ export const translations: Translations = {
         "We are Logical Minds — an AI-first software factory crafting intelligent solutions that transform businesses and redefine what's possible.",
       cta: "Get Started",
       ctaSecondary: "MVP in 8 Weeks",
+      ctaHowWeWork: "How We Work",
     },
     services: {
       badge: "What We Do",
@@ -64,8 +66,52 @@ export const translations: Translations = {
             "Custom AI models, intelligent process automation, and AI-powered workflows that empower your brand and transform how your business operates.",
           tags: ["Custom AI Models", "Process Automation", "AI Workflows", "Brand Empowerment"],
         },
+        staffAugmentation: {
+          title: "Staff Augmentation",
+          description:
+            "Embed senior engineers directly into your team — fully aligned with your stack, culture, and goals for seamless integration.",
+          tags: ["Dedicated Engineers", "Stack-Aligned", "Flexible Scaling", "Quality"],
+        },
+        recruitment: {
+          title: "Recruitment",
+          description:
+            "AI-powered hiring pipelines that find, vet, and match the right talent — faster and smarter than traditional methods.",
+          tags: ["AI Sourcing", "Technical Vetting", "Culture Fit", "Pipeline Automation"],
+        },
+        aiAgents: {
+          title: "AI Agents for Teams",
+          description:
+            "Custom AI agents designed for your team — automating repetitive tasks and amplifying human productivity across your workflow.",
+          tags: ["Custom Agents", "Tool Integration", "Knowledge Base", "Monitoring"],
+        },
       },
       explore: "Explore",
+      groups: {
+        logicalExperiences: {
+          title: "Experiences",
+          prefix: "Logical",
+          subtitle: "From idea validation to pixel-perfect interfaces — we design products people love.",
+          tags: ["Product Discovery", "UX/UI Design"],
+        },
+        logicalDevelopment: {
+          title: "Development",
+          prefix: "Logical",
+          subtitle: "Robust, tested, production-ready code — engineered for scale and maintainability.",
+          tags: ["Software Development", "Quality Assurance"],
+        },
+        logicalCloud: {
+          title: "Cloud",
+          prefix: "Logical",
+          subtitle: "Scalable infrastructure and intelligent automation — powered by AI and modern DevOps.",
+          tags: ["Cloud & Infrastructure", "AI Integration"],
+        },
+        logicalTalents: {
+          title: "Talents",
+          prefix: "Logical",
+          subtitle: "Scale your team with dedicated engineers, smart hiring, and custom AI agents built for your workflow.",
+          tags: ["Staff Augmentation", "Recruitment", "AI Agents"],
+        },
+      },
     },
     serviceDetail: {
       cta: "Start My Project",
@@ -139,6 +185,39 @@ export const translations: Translations = {
           process: ["Use Case Analysis", "Prompt Design", "Integration Architecture", "Data Layer Setup", "Testing & Tuning", "Deployment"],
           techStack: ["OpenAI", "Anthropic", "LangChain", "Supabase", "PostgreSQL", "Vercel AI SDK", "Pinecone", "n8n"],
         },
+        staffAugmentation: {
+          subtitle: "Embed senior engineers directly into your team — fully aligned with your stack, culture, and goals.",
+          deliverables: [
+            { title: "Dedicated Engineers", description: "Hand-picked senior developers who integrate into your existing workflows, tools, and rituals from day one." },
+            { title: "Stack-Aligned Onboarding", description: "Fast ramp-up process tailored to your tech stack, codebase, and coding standards — productive in days, not weeks." },
+            { title: "Flexible Scaling", description: "Scale your team up or down based on project needs — from a single specialist to a full squad." },
+            { title: "Continuous Quality", description: "Ongoing code reviews, performance tracking, and alignment checkpoints to ensure high-quality output." },
+          ],
+          process: ["Requirements Analysis", "Talent Matching", "Technical Assessment", "Onboarding", "Integration", "Performance Review"],
+          techStack: ["React", "Next.js", "Node.js", "TypeScript", "Python", "AWS", "Docker", "PostgreSQL"],
+        },
+        recruitment: {
+          subtitle: "AI-powered hiring pipelines that find, vet, and match the right talent — faster and smarter.",
+          deliverables: [
+            { title: "AI Candidate Sourcing", description: "Intelligent sourcing engines that scan global talent pools, rank candidates by fit, and surface top matches automatically." },
+            { title: "Technical Vetting", description: "Automated coding challenges, live assessments, and AI-scored evaluations calibrated to your role requirements." },
+            { title: "Culture & Fit Analysis", description: "Behavioral assessments and team compatibility scoring to ensure long-term retention and team harmony." },
+            { title: "Hiring Pipeline Automation", description: "End-to-end recruitment workflows — from job posting to offer letter — orchestrated and optimized by AI." },
+          ],
+          process: ["Role Definition", "AI Sourcing", "Technical Screening", "Culture Assessment", "Interview Coordination", "Offer & Onboarding"],
+          techStack: ["LinkedIn", "GitHub", "AI Screening Tools", "Notion", "Slack", "Google Meet"],
+        },
+        aiAgents: {
+          subtitle: "Custom AI agents designed for your team — automating repetitive tasks and amplifying human productivity.",
+          deliverables: [
+            { title: "Custom Agent Design", description: "Purpose-built AI agents tailored to your team's specific workflows, tools, and domain knowledge." },
+            { title: "Tool & API Integration", description: "Agents that connect to your existing stack — Slack, Jira, GitHub, CRMs — executing tasks autonomously across platforms." },
+            { title: "Knowledge Base Training", description: "Agents trained on your internal docs, processes, and data — providing instant, contextual assistance to your team." },
+            { title: "Monitoring & Optimization", description: "Continuous tracking of agent performance, accuracy, and impact — with iterative improvements based on real usage data." },
+          ],
+          process: ["Workflow Analysis", "Agent Architecture", "Integration Setup", "Knowledge Training", "Testing & QA", "Deployment & Monitoring"],
+          techStack: ["OpenAI", "Anthropic", "LangChain", "n8n", "Slack", "GitHub", "Supabase", "Vercel AI SDK"],
+        },
       },
     },
     about: {
@@ -154,9 +233,10 @@ export const translations: Translations = {
       },
     },
     howWeWork: {
-      badge: "AI Agent Infrastructure",
-      title: "AI-Powered Frameworks",
-      subtitle: "A dedicated layer of specialized AI agents embedded in every project — trained on our methodologies, connected to your stack, operating 24/7.",
+      badge: "How We Work",
+      title: "Hybrid Team",
+      highlight: "(Humans + AI)",
+      subtitle: "The best of both worlds — human creativity and strategic thinking, amplified by AI speed and consistency at every stage.",
       status: "Active",
       items: {
         specializedAgents: {
@@ -176,7 +256,7 @@ export const translations: Translations = {
         },
       },
       explore: "Explore",
-      cta: "I Want My AI Infrastructure",
+      cta: "Build With Our Hybrid Team",
       calloutTitle: "Your AI Team Never Sleeps",
       calloutStatus: "Active now",
       callout: "While your competitors wait for office hours, our AI agents are shipping code, running tests, and optimizing your product around the clock — working alongside human experts to deliver faster than any traditional team.",
@@ -1102,6 +1182,7 @@ export const translations: Translations = {
     nav: {
       services: "Servicios",
       about: "Nosotros",
+      howWeWork: "Cómo Trabajamos",
       portfolio: "Portafolio",
       partners: "Partners",
       contact: "Contacto",
@@ -1113,6 +1194,7 @@ export const translations: Translations = {
         "Somos Logical Minds — una fábrica de software AI-first que crea soluciones inteligentes para transformar negocios y redefinir lo posible.",
       cta: "Comenzar",
       ctaSecondary: "MVP en 8 Semanas",
+      ctaHowWeWork: "Cómo Trabajamos",
     },
     services: {
       badge: "Lo Que Hacemos",
@@ -1156,8 +1238,52 @@ export const translations: Translations = {
             "Modelos de IA personalizados, automatización inteligente de procesos y flujos de trabajo con IA que potencian tu marca y transforman cómo opera tu negocio.",
           tags: ["Modelos de IA", "Automatización de Procesos", "Flujos de IA", "Potenciamiento de Marca"],
         },
+        staffAugmentation: {
+          title: "Staff Augmentation",
+          description:
+            "Integramos ingenieros senior directamente en tu equipo — alineados con tu stack, cultura y objetivos para una integración sin fricciones.",
+          tags: ["Ingenieros Dedicados", "Alineado al Stack", "Escalamiento Flexible", "Calidad"],
+        },
+        recruitment: {
+          title: "Recruitment",
+          description:
+            "Pipelines de hiring potenciados por IA que encuentran, evalúan y matchean el talento correcto — más rápido e inteligente que métodos tradicionales.",
+          tags: ["Sourcing IA", "Evaluación Técnica", "Culture Fit", "Automatización de Pipeline"],
+        },
+        aiAgents: {
+          title: "Agentes IA para Equipos",
+          description:
+            "Agentes de IA personalizados para tu equipo — automatizando tareas repetitivas y amplificando la productividad humana en todo tu flujo de trabajo.",
+          tags: ["Agentes Custom", "Integración de Herramientas", "Base de Conocimiento", "Monitoreo"],
+        },
       },
       explore: "Explorar",
+      groups: {
+        logicalExperiences: {
+          title: "Experiences",
+          prefix: "Logical",
+          subtitle: "Desde la validación de ideas hasta interfaces pixel-perfect — diseñamos productos que la gente ama.",
+          tags: ["Descubrimiento de Producto", "Diseño UX/UI"],
+        },
+        logicalDevelopment: {
+          title: "Development",
+          prefix: "Logical",
+          subtitle: "Código robusto, testeado y listo para producción — diseñado para escalar y mantener.",
+          tags: ["Desarrollo de Software", "Aseguramiento de Calidad"],
+        },
+        logicalCloud: {
+          title: "Cloud",
+          prefix: "Logical",
+          subtitle: "Infraestructura escalable y automatización inteligente — potenciado por IA y DevOps moderno.",
+          tags: ["Cloud & Infraestructura", "Integración de IA"],
+        },
+        logicalTalents: {
+          title: "Talents",
+          prefix: "Logical",
+          subtitle: "Escala tu equipo con ingenieros dedicados, hiring inteligente y agentes de IA diseñados para tu flujo de trabajo.",
+          tags: ["Staff Augmentation", "Recruitment", "Agentes IA"],
+        },
+      },
     },
     serviceDetail: {
       cta: "Comenzar Mi Proyecto",
@@ -1231,6 +1357,39 @@ export const translations: Translations = {
           process: ["Análisis de Caso de Uso", "Diseño de Prompts", "Arquitectura de Integración", "Setup de Capa de Datos", "Testing & Ajuste", "Despliegue"],
           techStack: ["OpenAI", "Anthropic", "LangChain", "Supabase", "PostgreSQL", "Vercel AI SDK", "Pinecone", "n8n"],
         },
+        staffAugmentation: {
+          subtitle: "Integramos ingenieros senior directamente en tu equipo — alineados con tu stack, cultura y objetivos.",
+          deliverables: [
+            { title: "Ingenieros Dedicados", description: "Desarrolladores senior seleccionados que se integran a tus flujos de trabajo, herramientas y rituales desde el día uno." },
+            { title: "Onboarding Alineado al Stack", description: "Proceso de incorporación rápido adaptado a tu stack, codebase y estándares — productivos en días, no semanas." },
+            { title: "Escalamiento Flexible", description: "Escala tu equipo según las necesidades del proyecto — desde un especialista hasta un squad completo." },
+            { title: "Calidad Continua", description: "Code reviews constantes, tracking de rendimiento y checkpoints de alineación para asegurar output de alta calidad." },
+          ],
+          process: ["Análisis de Requerimientos", "Matching de Talento", "Evaluación Técnica", "Onboarding", "Integración", "Review de Rendimiento"],
+          techStack: ["React", "Next.js", "Node.js", "TypeScript", "Python", "AWS", "Docker", "PostgreSQL"],
+        },
+        recruitment: {
+          subtitle: "Pipelines de hiring potenciados por IA que encuentran, evalúan y matchean el talento correcto — más rápido e inteligente.",
+          deliverables: [
+            { title: "Sourcing de Candidatos con IA", description: "Motores de sourcing inteligente que escanean pools de talento globales, rankean candidatos por fit y muestran los mejores matches automáticamente." },
+            { title: "Evaluación Técnica", description: "Challenges de código automatizados, evaluaciones en vivo y scorings con IA calibrados a los requerimientos de tu rol." },
+            { title: "Análisis de Cultura & Fit", description: "Evaluaciones de comportamiento y scoring de compatibilidad para asegurar retención a largo plazo y armonía de equipo." },
+            { title: "Automatización del Pipeline de Hiring", description: "Flujos de reclutamiento de punta a punta — desde publicación del puesto hasta carta oferta — orquestados y optimizados por IA." },
+          ],
+          process: ["Definición del Rol", "Sourcing con IA", "Screening Técnico", "Evaluación Cultural", "Coordinación de Entrevistas", "Oferta & Onboarding"],
+          techStack: ["LinkedIn", "GitHub", "AI Screening Tools", "Notion", "Slack", "Google Meet"],
+        },
+        aiAgents: {
+          subtitle: "Agentes de IA personalizados para tu equipo — automatizando tareas repetitivas y amplificando la productividad humana.",
+          deliverables: [
+            { title: "Diseño de Agentes Personalizados", description: "Agentes de IA diseñados para los flujos de trabajo, herramientas y conocimiento de dominio específicos de tu equipo." },
+            { title: "Integración de Herramientas & APIs", description: "Agentes que se conectan a tu stack existente — Slack, Jira, GitHub, CRMs — ejecutando tareas autónomamente entre plataformas." },
+            { title: "Entrenamiento con Base de Conocimiento", description: "Agentes entrenados con tu documentación interna, procesos y datos — asistencia instantánea y contextual para tu equipo." },
+            { title: "Monitoreo & Optimización", description: "Seguimiento continuo del rendimiento, precisión e impacto del agente — con mejoras iterativas basadas en datos reales de uso." },
+          ],
+          process: ["Análisis de Flujos", "Arquitectura del Agente", "Setup de Integración", "Entrenamiento de Conocimiento", "Testing & QA", "Despliegue & Monitoreo"],
+          techStack: ["OpenAI", "Anthropic", "LangChain", "n8n", "Slack", "GitHub", "Supabase", "Vercel AI SDK"],
+        },
       },
     },
     about: {
@@ -1246,9 +1405,10 @@ export const translations: Translations = {
       },
     },
     howWeWork: {
-      badge: "Infraestructura de Agentes IA",
-      title: "Frameworks de Trabajo con IA",
-      subtitle: "Una capa dedicada de agentes de IA especializados integrados en cada proyecto — entrenados en nuestras metodologías, conectados a tu stack, operando 24/7.",
+      badge: "Cómo Trabajamos",
+      title: "Equipo Híbrido",
+      highlight: "(Humanos + IA)",
+      subtitle: "Lo mejor de ambos mundos — creatividad y pensamiento estratégico humano, amplificado por la velocidad y consistencia de la IA en cada etapa.",
       status: "Activo",
       items: {
         specializedAgents: {
@@ -1268,7 +1428,7 @@ export const translations: Translations = {
         },
       },
       explore: "Explorar",
-      cta: "Quiero mi Infraestructura IA",
+      cta: "Construí con Nuestro Equipo Híbrido",
       calloutTitle: "Tu Equipo de IA Nunca Duerme",
       calloutStatus: "Activo ahora",
       callout: "Mientras tu competencia espera al horario de oficina, nuestros agentes de IA están escribiendo código, corriendo tests y optimizando tu producto las 24 horas — trabajando junto a expertos humanos para entregar más rápido que cualquier equipo tradicional.",

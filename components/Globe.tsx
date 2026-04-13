@@ -4,13 +4,25 @@ import { useEffect, useRef, useCallback, useState } from "react";
 import createGlobe from "cobe";
 
 const MARKERS = [
-  { location: [-34.6037, -58.3816] as [number, number], size: 0.05, id: "bsas" },
-  { location: [40.7128, -74.006] as [number, number], size: 0.05, id: "nyc" },
+  { location: [-34.6037, -58.3816] as [number, number], size: 0.06, id: "bsas" },
+  { location: [40.7128, -74.006] as [number, number], size: 0.06, id: "nyc" },
+  { location: [-23.5505, -46.6333] as [number, number], size: 0.05, id: "saopaulo" },
+  { location: [19.4326, -99.1332] as [number, number], size: 0.05, id: "cdmx" },
+  { location: [1.3521, 103.8198] as [number, number], size: 0.04, id: "singapore" },
+  { location: [32.0853, 34.7818] as [number, number], size: 0.04, id: "telaviv" },
+  { location: [25.2048, 55.2708] as [number, number], size: 0.04, id: "dubai" },
+  { location: [25.7617, -80.1918] as [number, number], size: 0.04, id: "miami" },
 ];
 
 const MARKER_INFO: Record<string, { label: string; flag: string; subtitle: string }> = {
   bsas: { label: "Buenos Aires, AR", flag: "🇦🇷", subtitle: "HQ" },
   nyc: { label: "New York, US", flag: "🇺🇸", subtitle: "Office" },
+  saopaulo: { label: "São Paulo, BR", flag: "🇧🇷", subtitle: "Tech Hub" },
+  cdmx: { label: "Ciudad de México, MX", flag: "🇲🇽", subtitle: "Tech Hub" },
+  singapore: { label: "Singapore, SG", flag: "🇸🇬", subtitle: "Tech Hub" },
+  telaviv: { label: "Tel Aviv, IL", flag: "🇮🇱", subtitle: "Tech Hub" },
+  dubai: { label: "Dubai, AE", flag: "🇦🇪", subtitle: "Tech Hub" },
+  miami: { label: "Miami, US", flag: "🇺🇸", subtitle: "Tech Hub" },
 };
 
 // phi ≈ 4.65 centers between Buenos Aires (-58°W) and New York (-74°W)
@@ -64,7 +76,7 @@ export default function Globe() {
     const getWidth = () => container.clientWidth || 400;
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     const dpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
-    const samples = isMobile ? 8000 : 16000;
+    const samples = isMobile ? 12000 : 30000;
 
     const globe = createGlobe(canvas, {
       devicePixelRatio: dpr,
@@ -72,14 +84,14 @@ export default function Globe() {
       height: getWidth() * dpr,
       phi: BASE_PHI,
       theta: THETA,
-      dark: 1,
-      diffuse: 3,
+      dark: 0,
+      diffuse: 1.4,
       mapSamples: samples,
-      mapBrightness: 6,
-      mapBaseBrightness: 0.02,
-      baseColor: [0.12, 0.1, 0.18],
-      markerColor: [0.486, 0.361, 0.906],
-      glowColor: [0.12, 0.06, 0.22],
+      mapBrightness: 2,
+      mapBaseBrightness: 0.01,
+      baseColor: [1, 1, 1],
+      markerColor: [0.486, 0.231, 0.929],
+      glowColor: [0.96, 0.96, 1],
       markers: MARKERS,
     });
 
@@ -125,20 +137,15 @@ export default function Globe() {
           transition: opacity 0.3s, filter 0.3s;
           z-index: 10;
         }
-        .marker-overlay-bsas {
-          position-anchor: --cobe-bsas;
+        ${MARKERS.map(
+          (m) => `.marker-overlay-${m.id} {
+          position-anchor: --cobe-${m.id};
           left: anchor(center);
           top: anchor(center);
-          opacity: var(--cobe-visible-bsas, 0);
-          filter: blur(calc((1 - var(--cobe-visible-bsas, 0)) * 4px));
-        }
-        .marker-overlay-nyc {
-          position-anchor: --cobe-nyc;
-          left: anchor(center);
-          top: anchor(center);
-          opacity: var(--cobe-visible-nyc, 0);
-          filter: blur(calc((1 - var(--cobe-visible-nyc, 0)) * 4px));
-        }
+          opacity: var(--cobe-visible-${m.id}, 0);
+          filter: blur(calc((1 - var(--cobe-visible-${m.id}, 0)) * 4px));
+        }`
+        ).join("\n        ")}
       `}</style>
 
       {/* Globe */}
@@ -148,7 +155,7 @@ export default function Globe() {
         onClick={handleDismiss}
       >
         {/* Ambient glow behind globe */}
-        <div className="pointer-events-none absolute inset-0 rounded-full bg-violet-500/[0.06] blur-3xl" />
+        <div className="pointer-events-none absolute inset-0 rounded-full bg-violet-300/[0.12] blur-3xl" />
 
         <canvas
           ref={canvasRef}
@@ -157,7 +164,7 @@ export default function Globe() {
           onPointerOut={onPointerUpHandler}
           onMouseMove={onMouseMoveHandler}
           onTouchMove={onTouchMoveHandler}
-          className="absolute inset-0 h-full w-full cursor-grab opacity-0 transition-opacity duration-1000"
+          className="absolute inset-0 h-full w-full cursor-grab opacity-0 transition-opacity duration-1000 drop-shadow-[0_8px_30px_rgba(0,0,0,0.15)]"
         />
 
         {/* Marker overlays — anchored to cobe markers via CSS Anchor Positioning */}
@@ -177,17 +184,17 @@ export default function Globe() {
             >
               {/* Pulsing dot */}
               <div className="relative flex h-5 w-5 cursor-pointer items-center justify-center">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400/40" />
-                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-violet-400 shadow-[0_0_8px_rgba(139,92,246,0.6)]" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-500/40" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-violet-500 shadow-[0_0_8px_rgba(124,58,237,0.5)]" />
               </div>
 
               {/* Tooltip */}
               <div
                 className={`
                   pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2
-                  whitespace-nowrap rounded-lg border border-white/10
-                  bg-[#0a0a0f]/80 px-3 py-2 backdrop-blur-xl
-                  shadow-[0_0_20px_rgba(124,58,237,0.2)]
+                  whitespace-nowrap rounded-lg border border-gray-200
+                  bg-white/90 px-3 py-2 backdrop-blur-xl
+                  shadow-[0_4px_20px_rgba(124,58,237,0.12)]
                   transition-all duration-200
                   ${isActive
                     ? "translate-y-0 scale-100 opacity-100"
@@ -198,12 +205,12 @@ export default function Globe() {
                 <div className="flex items-center gap-2">
                   <span className="text-lg leading-none">{info.flag}</span>
                   <div>
-                    <p className="text-sm font-medium text-white">{info.label}</p>
-                    <p className="text-xs text-violet-300/70">{info.subtitle}</p>
+                    <p className="text-sm font-medium text-gray-800">{info.label}</p>
+                    <p className="text-xs text-violet-500/70">{info.subtitle}</p>
                   </div>
                 </div>
                 {/* Tooltip arrow */}
-                <div className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-white/10" />
+                <div className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-gray-200" />
               </div>
             </div>
           );

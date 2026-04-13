@@ -26,7 +26,7 @@ function MarqueeRow({
             return (
               <div key={i} className="flex shrink-0 items-center">
                 <span className="mx-4 sm:mx-6 md:mx-8 flex items-center" aria-hidden="true">
-                  <svg className="h-7 w-7 text-violet-400 drop-shadow-[0_0_8px_rgba(124,58,237,0.7)] sm:h-8 sm:w-8 md:h-9 md:w-9" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-7 w-7 text-violet-500 drop-shadow-[0_0_8px_rgba(124,58,237,0.3)] sm:h-8 sm:w-8 md:h-9 md:w-9" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                   </svg>
                 </span>
@@ -34,14 +34,14 @@ function MarqueeRow({
                   <span
                     className="whitespace-nowrap text-3xl font-bold tracking-tight select-none sm:text-4xl md:text-5xl lg:text-6xl"
                     style={{
-                      WebkitTextStroke: "1.5px rgba(255,255,255,0.2)",
+                      WebkitTextStroke: "1.5px rgba(124,58,237,0.2)",
                       color: "transparent",
                     }}
                   >
                     {phrase}
                   </span>
                 ) : (
-                  <span className="whitespace-nowrap bg-gradient-to-r from-white via-gray-200 to-white/80 bg-clip-text text-3xl font-bold tracking-tight text-transparent select-none sm:text-4xl md:text-5xl lg:text-6xl">
+                  <span className="whitespace-nowrap bg-gradient-to-r from-gray-800 via-violet-600 to-gray-800 bg-clip-text text-3xl font-bold tracking-tight text-transparent select-none sm:text-4xl md:text-5xl lg:text-6xl">
                     {phrase}
                   </span>
                 )}
@@ -151,7 +151,7 @@ export default function ScrollMarquee() {
 
   return (
     <section
-      className="relative py-10 sm:py-16"
+      className="relative py-10 sm:py-16 bg-violet-500/[0.04]"
       aria-hidden="true"
     >
       {/* Subtle purple atmosphere */}
@@ -159,7 +159,7 @@ export default function ScrollMarquee() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse at 50% 50%, rgba(124,58,237,0.04) 0%, transparent 70%)",
+            "radial-gradient(ellipse at 50% 50%, rgba(124,58,237,0.06) 0%, transparent 70%)",
         }}
       />
 

@@ -16,7 +16,6 @@ const About = dynamic(() => import("@/components/About"), { ssr: false });
 const HowWeWork = dynamic(() => import("@/components/HowWeWork"), { ssr: false });
 const Services = dynamic(() => import("@/components/Services"), { ssr: false });
 const Portfolio = dynamic(() => import("@/components/Portfolio"), { ssr: false });
-const Partners = dynamic(() => import("@/components/Partners"), { ssr: false });
 const Testimonials = dynamic(() => import("@/components/Testimonials"), { ssr: false });
 const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
 
@@ -45,8 +44,6 @@ export default function Home() {
                 <Services />
                 <SectionDivider />
                 <Portfolio />
-                <SectionDivider />
-                <Partners />
                 <SectionDivider />
                 <Testimonials />
                 <ScrollMarquee />

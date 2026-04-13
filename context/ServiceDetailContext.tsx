@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useCallback, ReactNode } from "react";
 
-export type ServiceView = "productDev" | "uxDesign" | "fullstack" | "qa" | "cloud" | "aiIntegration";
+export type ServiceView = "logicalExperiences" | "logicalDevelopment" | "logicalCloud" | "logicalTalents";
 
 interface ServiceDetailContextType {
   activeService: ServiceView | null;

@@ -118,7 +118,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${poppins.variable} antialiased`}>
-      <body className="min-h-screen bg-[#0a0a0f] text-white font-[family-name:var(--font-poppins)]">
+      <body className="min-h-screen bg-[#f8f9fc] text-gray-900 font-[family-name:var(--font-poppins)]">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
