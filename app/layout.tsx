@@ -14,11 +14,11 @@ const siteUrl = "https://logicalminds.ai";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Logical Minds — AI-First Software Factory | Buenos Aires & LATAM",
+    default: "Logical Minds — We ship products that scales.",
     template: "%s — Logical Minds",
   },
   description:
-    "AI-first software factory based in Buenos Aires, serving LATAM & globally. We craft intelligent digital products — from product discovery & UX/UI design to full-stack development, cloud infrastructure, and AI integration.",
+    "Product agency that partners with companies to build and ship technology products. A hybrid team of engineers, designers, and AI agents — based in Buenos Aires, serving LATAM & globally.",
   keywords: [
     "software factory Buenos Aires",
     "AI software development",
@@ -36,6 +36,22 @@ export const metadata: Metadata = {
     "Buenos Aires tech",
     "LATAM software",
     "intelligent automation",
+    "MVP development",
+    "MVP in 12 weeks",
+    "staff augmentation Argentina",
+    "QA testing",
+    "product discovery",
+    "startup MVP",
+    "React development",
+    "Node.js development",
+    "cloud DevOps",
+    "AI agents",
+    "recruitment tech talent",
+    "software outsourcing LATAM",
+    "agencia de software Buenos Aires",
+    "desarrollo de software Argentina",
+    "diseño UX UI",
+    "fábrica de software",
   ],
   authors: [{ name: "Logical Minds", url: siteUrl }],
   creator: "Logical Minds",
@@ -49,23 +65,23 @@ export const metadata: Metadata = {
     alternateLocale: "es_AR",
     url: siteUrl,
     siteName: "Logical Minds",
-    title: "Logical Minds — AI-First Software Factory",
+    title: "Logical Minds — We ship products that scales.",
     description:
-      "AI-first software factory based in Buenos Aires. Product discovery, UX/UI design, full-stack development, and AI integration for companies worldwide.",
+      "Product agency that partners with companies to build and ship technology products. A hybrid team of engineers, designers, and AI agents — based in Buenos Aires.",
     images: [
       {
         url: `${siteUrl}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: "Logical Minds — AI-First Software Factory",
+        alt: "Logical Minds — We ship products that scales.",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Logical Minds — AI-First Software Factory",
+    title: "Logical Minds — We ship products that scales.",
     description:
-      "AI-first software factory from Buenos Aires. We build intelligent digital products for companies across LATAM & globally.",
+      "Product agency that partners with companies to build and ship technology products. A hybrid team of engineers, designers, and AI agents.",
     images: [`${siteUrl}/og-image.png`],
   },
   robots: {
@@ -89,7 +105,7 @@ const jsonLd = {
   url: siteUrl,
   logo: `${siteUrl}/logo-logical-minds.svg`,
   description:
-    "AI-first software factory based in Buenos Aires, Argentina. Specializing in product discovery, UX/UI design, full-stack development, cloud infrastructure, and AI integration.",
+    "Product agency that partners with companies to build and ship technology products. A hybrid team of engineers, designers, and AI agents — based in Buenos Aires, Argentina.",
   foundingLocation: {
     "@type": "Place",
     name: "Buenos Aires, Argentina",

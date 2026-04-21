@@ -1,15 +1,15 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import gsap from "gsap";
 import { useLanguage } from "@/context/LanguageContext";
 import { useContact } from "@/context/ContactContext";
-import { useServiceDetail, type ServiceView } from "@/context/ServiceDetailContext";
+import { SERVICE_SLUGS, type ServiceView } from "@/lib/serviceRoutes";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 const navLinks = [
   "about",
-  "howWeWork",
   "services",
   "portfolio",
   "contact",
@@ -18,17 +18,28 @@ const navLinks = [
 /* ── Service groups for dropdowns ──────────────────────────── */
 const serviceGroups: { key: ServiceView; color: string }[] = [
   { key: "logicalExperiences", color: "#227CFF" },
-  { key: "logicalDevelopment", color: "#FDA901" },
+  { key: "logicalDevelopment", color: "#8b5cf6" },
   { key: "logicalCloud", color: "#F50132" },
   { key: "logicalTalents", color: "#22AE48" },
+  { key: "logicalMvp", color: "#f59e0b" },
 ];
+
+const serviceSvg: Record<ServiceView, string> = {
+  logicalExperiences: "/assets/service-experiences.svg",
+  logicalDevelopment: "/assets/service-development.svg",
+  logicalCloud: "/assets/service-cloud.svg",
+  logicalTalents: "/assets/service-talents.svg",
+  logicalMvp: "/assets/service-development.svg",
+};
 
 const howWeWorkItems = ["specializedAgents", "orchestration", "ecosystem"] as const;
 
 export default function Navbar() {
   const { t } = useLanguage();
   const { openContact } = useContact();
-  const { openServiceDetail } = useServiceDetail();
+  const router = useRouter();
+  const pathname = usePathname();
+  const isRoot = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
@@ -205,15 +216,17 @@ export default function Navbar() {
     closeMenu();
     if (id === "contact") {
       setTimeout(() => openContact(), 500);
-    } else {
+    } else if (isRoot) {
       setTimeout(() => {
         document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
       }, 500);
+    } else {
+      setTimeout(() => router.push(`/#${id}`), 500);
     }
   };
 
   const handleMobileToggle = (link: string) => {
-    const hasDropdown = link === "howWeWork" || link === "services";
+    const hasDropdown = (link as string) === "howWeWork" || link === "services";
     if (hasDropdown) {
       setExpandedMobileLink((prev) => (prev === link ? null : link));
     } else {
@@ -223,18 +236,23 @@ export default function Navbar() {
 
   const handleMobileSubClick = (sectionId: string, serviceKey?: ServiceView) => {
     closeMenu();
-    setTimeout(() => {
-      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
-      if (serviceKey) {
-        setTimeout(() => openServiceDetail(serviceKey), 400);
-      }
-    }, 500);
+    if (serviceKey) {
+      setTimeout(() => {
+        router.push(`/services/${SERVICE_SLUGS[serviceKey]}`);
+      }, 500);
+    } else if (isRoot) {
+      setTimeout(() => {
+        document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+      }, 500);
+    } else {
+      setTimeout(() => router.push(`/#${sectionId}`), 500);
+    }
   };
 
   /* ── Desktop nav link renderer ──────────────────────────── */
   const renderDesktopLink = (link: (typeof navLinks)[number]) => {
     const isActive = activeSection === link;
-    const hasDropdown = link === "howWeWork" || link === "services";
+    const hasDropdown = (link as string) === "howWeWork" || link === "services";
 
     if (hasDropdown) {
       return (
@@ -246,10 +264,14 @@ export default function Navbar() {
         >
           <button
             onClick={() => {
-              document.getElementById(link)?.scrollIntoView({ behavior: "smooth" });
+              if (isRoot) {
+                document.getElementById(link)?.scrollIntoView({ behavior: "smooth" });
+              } else {
+                router.push(`/#${link}`);
+              }
               setOpenDropdown(null);
             }}
-            className={`relative flex items-center gap-1.5 px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg cursor-pointer ${
+            className={`relative flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium transition-all duration-300 rounded-lg cursor-pointer ${
               isActive
                 ? "text-violet-600"
                 : "text-gray-500 hover:text-violet-600 hover:bg-violet-50"
@@ -274,52 +296,80 @@ export default function Navbar() {
 
           {/* Dropdown panel */}
           <div
-            className={`absolute left-1/2 -translate-x-1/2 top-full pt-2 transition-all duration-300 ${
+            className={`absolute top-full pt-2 transition-all duration-300 left-1/2 -translate-x-1/2 ${
               openDropdown === link
                 ? "opacity-100 translate-y-0 pointer-events-auto"
                 : "opacity-0 -translate-y-2 pointer-events-none"
             }`}
           >
-            <div className="rounded-xl border border-gray-200/80 bg-white/95 backdrop-blur-2xl shadow-[0_8px_40px_rgba(0,0,0,0.08)] p-1.5 min-w-[260px]">
-              {link === "services" &&
-                serviceGroups.map((group) => (
-                  <button
-                    key={group.key}
-                    onClick={() => {
-                      setOpenDropdown(null);
-                      document.getElementById("services")?.scrollIntoView({ behavior: "smooth" });
-                      setTimeout(() => openServiceDetail(group.key), 400);
-                    }}
-                    className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-left transition-all duration-200 hover:bg-gray-50 cursor-pointer group/item"
-                  >
-                    <span
-                      className="h-2.5 w-2.5 rounded-full shrink-0 transition-shadow duration-300 group-hover/item:shadow-[0_0_8px_var(--dot-color)]"
-                      style={{ backgroundColor: group.color, "--dot-color": group.color } as React.CSSProperties}
-                    />
-                    <span className="text-sm font-medium text-gray-600 transition-colors duration-200 group-hover/item:text-gray-900">
-                      <span className="text-gray-400">{t(`services.groups.${group.key}.prefix`)}</span>
-                      {t(`services.groups.${group.key}.title`)}
-                    </span>
-                  </button>
-                ))}
-
-              {link === "howWeWork" &&
-                howWeWorkItems.map((item) => (
-                  <button
-                    key={item}
-                    onClick={() => {
-                      setOpenDropdown(null);
-                      document.getElementById("howWeWork")?.scrollIntoView({ behavior: "smooth" });
-                    }}
-                    className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-left transition-all duration-200 hover:bg-gray-50 cursor-pointer group/item"
-                  >
-                    <span className="h-2.5 w-2.5 rounded-full shrink-0 bg-violet-400 transition-shadow duration-300 group-hover/item:shadow-[0_0_8px_rgba(139,92,246,0.5)]" />
-                    <span className="text-sm font-medium text-gray-600 transition-colors duration-200 group-hover/item:text-gray-900">
-                      {(t(`howWeWork.items.${item}`) as { title: string })?.title}
-                    </span>
-                  </button>
-                ))}
-            </div>
+            {link === "services" ? (
+              <div className="rounded-2xl border border-gray-200/80 bg-white/95 backdrop-blur-2xl shadow-[0_12px_48px_rgba(0,0,0,0.1)] p-4 w-max">
+                <div className="flex gap-2.5">
+                  {serviceGroups.map((group) => {
+                    return (
+                      <button
+                        key={group.key}
+                        onClick={() => {
+                          setOpenDropdown(null);
+                          router.push(`/services/${SERVICE_SLUGS[group.key]}`);
+                        }}
+                        className="group/card relative flex flex-col rounded-xl border border-transparent p-3.5 w-[200px] text-left transition-colors duration-200 hover:border-gray-200 hover:bg-gray-50/80 cursor-pointer overflow-hidden"
+                      >
+                        {/* Top accent bar */}
+                        <div
+                          className="absolute top-0 left-0 right-0 h-[2px] opacity-0 transition-opacity duration-300 group-hover/card:opacity-100"
+                          style={{ background: group.color }}
+                        />
+                        <div className="flex items-center gap-2 mb-1.5">
+                          <span
+                            className="shrink-0 flex items-center justify-center rounded-full transition-shadow duration-300 group-hover/card:shadow-[0_0_10px_var(--dot-color)]"
+                            style={{ width: 24, height: 24, backgroundColor: group.color, "--dot-color": group.color } as React.CSSProperties}
+                          >
+                            <img aria-hidden src={serviceSvg[group.key]} alt="" style={{ width: 12, height: 12 }} />
+                          </span>
+                          <span className="text-[13px] font-semibold text-gray-800">
+                            <span className="text-gray-400 font-medium">{t(`services.groups.${group.key}.prefix`)}</span>
+                            {t(`services.groups.${group.key}.title`)}
+                          </span>
+                        </div>
+                        <p className="text-[11px] leading-relaxed text-gray-400 mb-2.5 line-clamp-2">
+                          {t(`services.groups.${group.key}.subtitle`)}
+                        </p>
+                        <div className="mt-auto flex items-center gap-1 text-[11px] font-medium text-gray-400 transition-colors duration-200 group-hover/card:text-gray-600">
+                          <span>{t("services.explore")}</span>
+                          <svg className="h-3 w-3 transition-transform duration-200 group-hover/card:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                          </svg>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : (
+              <div className="rounded-xl border border-gray-200/80 bg-white/95 backdrop-blur-2xl shadow-[0_8px_40px_rgba(0,0,0,0.08)] p-1.5 min-w-[260px]">
+                {(link as string) === "howWeWork" &&
+                  howWeWorkItems.map((item) => (
+                    <button
+                      key={item}
+                      onClick={() => {
+                        setOpenDropdown(null);
+                        if (isRoot) {
+                          document.getElementById("howWeWork")?.scrollIntoView({ behavior: "smooth" });
+                        } else {
+                          router.push("/#howWeWork");
+                        }
+                      }}
+                      className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-left transition-all duration-200 hover:bg-gray-50 cursor-pointer group/item"
+                    >
+                      <span className="h-2.5 w-2.5 rounded-full shrink-0 bg-violet-400 transition-shadow duration-300 group-hover/item:shadow-[0_0_8px_rgba(139,92,246,0.5)]" />
+                      <span className="text-sm font-medium text-gray-600 transition-colors duration-200 group-hover/item:text-gray-900">
+                        {(t(`howWeWork.items.${item}`) as { title: string })?.title}
+                      </span>
+                    </button>
+                  ))}
+              </div>
+            )}
           </div>
         </div>
       );
@@ -329,9 +379,13 @@ export default function Navbar() {
       <button
         key={link}
         onClick={() => {
-          document.getElementById(link)?.scrollIntoView({ behavior: "smooth" });
+          if (isRoot) {
+            document.getElementById(link)?.scrollIntoView({ behavior: "smooth" });
+          } else {
+            router.push(`/#${link}`);
+          }
         }}
-        className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg cursor-pointer ${
+        className={`relative px-3 py-1.5 text-sm font-medium transition-all duration-300 rounded-lg cursor-pointer ${
           isActive
             ? "text-violet-600"
             : "text-gray-500 hover:text-violet-600 hover:bg-violet-50"
@@ -359,9 +413,11 @@ export default function Navbar() {
               className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-left transition-all duration-200 hover:bg-gray-50 cursor-pointer group/sub"
             >
               <span
-                className="h-2 w-2 rounded-full shrink-0"
-                style={{ backgroundColor: group.color }}
-              />
+                className="shrink-0 flex items-center justify-center rounded-full"
+                style={{ width: 24, height: 24, backgroundColor: group.color }}
+              >
+                <img aria-hidden src={serviceSvg[group.key]} alt="" style={{ width: 12, height: 12 }} />
+              </span>
               <span className="text-sm font-medium text-gray-500 transition-colors duration-200 group-hover/sub:text-gray-800">
                 <span className="text-gray-400">{t(`services.groups.${group.key}.prefix`)}</span>
                 {t(`services.groups.${group.key}.title`)}
@@ -385,7 +441,7 @@ export default function Navbar() {
       );
     }
 
-    if (link === "howWeWork") {
+    if ((link as string) === "howWeWork") {
       return (
         <div className="ml-10 mt-1 mb-2 flex flex-col gap-1">
           {howWeWorkItems.map((item) => (
@@ -411,20 +467,26 @@ export default function Navbar() {
     <>
       {/* Full-width Header */}
       <nav className={`fixed top-0 left-0 right-0 transition-all duration-500 border-b ${menuOpen ? "z-[60]" : "z-50"} ${
-            scrolled
-              ? "border-gray-200/80 bg-white/70 backdrop-blur-2xl shadow-[0_4px_30px_rgba(0,0,0,0.08)]"
-              : "border-gray-200/50 bg-white/40 backdrop-blur-xl shadow-[0_2px_20px_rgba(0,0,0,0.04)]"
+            !isRoot
+              ? "border-gray-200/80 bg-white shadow-[0_4px_30px_rgba(0,0,0,0.08)]"
+              : scrolled
+                ? "border-gray-200/80 bg-white/70 backdrop-blur-2xl shadow-[0_4px_30px_rgba(0,0,0,0.08)]"
+                : "border-gray-200/50 bg-white/40 backdrop-blur-xl shadow-[0_2px_20px_rgba(0,0,0,0.04)]"
           }`}>
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
 
-          <div className="mx-auto w-full max-w-[1400px] px-5 sm:px-8">
+          <div className="mx-auto w-full max-w-[1360px] px-5 sm:px-8">
             <div className="flex h-20 items-center justify-between">
               {/* Logo */}
               <a
-                href="#"
+                href="/"
                 onClick={(e) => {
                   e.preventDefault();
-                  window.scrollTo({ top: 0, behavior: "smooth" });
+                  if (isRoot) {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  } else {
+                    router.push("/");
+                  }
                 }}
                 className="flex items-center gap-2 relative z-[60] cursor-pointer"
               >
@@ -526,7 +588,7 @@ export default function Navbar() {
               {/* Nav Links */}
               <div className="flex flex-col gap-3">
                 {navLinks.map((link, i) => {
-                  const hasDropdown = link === "howWeWork" || link === "services";
+                  const hasDropdown = (link as string) === "howWeWork" || link === "services";
                   const isExpanded = expandedMobileLink === link;
 
                   return (

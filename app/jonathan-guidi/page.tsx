@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { ContactProvider } from "@/context/ContactContext";
-import { ServiceDetailProvider } from "@/context/ServiceDetailContext";
 import Navbar from "@/components/Navbar";
 import TeamMemberCard from "@/components/TeamMemberCard";
 import type { TeamMemberData, ExpertiseItem } from "@/components/TeamMemberCard";
@@ -87,14 +86,12 @@ export default function JonathanGuidiPage() {
   return (
     <LanguageProvider>
       <ContactProvider>
-        <ServiceDetailProvider>
-          <Navbar />
-          <main>
-            <TeamMemberCard member={jonathanData} />
-          </main>
-          <Footer />
-          <ContactOverlay />
-        </ServiceDetailProvider>
+        <Navbar />
+        <main>
+          <TeamMemberCard member={jonathanData} />
+        </main>
+        <Footer />
+        <ContactOverlay />
       </ContactProvider>
     </LanguageProvider>
   );

@@ -8,10 +8,9 @@ const MARKERS = [
   { location: [40.7128, -74.006] as [number, number], size: 0.06, id: "nyc" },
   { location: [-23.5505, -46.6333] as [number, number], size: 0.05, id: "saopaulo" },
   { location: [19.4326, -99.1332] as [number, number], size: 0.05, id: "cdmx" },
-  { location: [1.3521, 103.8198] as [number, number], size: 0.04, id: "singapore" },
-  { location: [32.0853, 34.7818] as [number, number], size: 0.04, id: "telaviv" },
-  { location: [25.2048, 55.2708] as [number, number], size: 0.04, id: "dubai" },
   { location: [25.7617, -80.1918] as [number, number], size: 0.04, id: "miami" },
+  { location: [-33.4489, -70.6693] as [number, number], size: 0.05, id: "santiago" },
+  { location: [4.711, -74.0721] as [number, number], size: 0.05, id: "bogota" },
 ];
 
 const MARKER_INFO: Record<string, { label: string; flag: string; subtitle: string }> = {
@@ -19,15 +18,14 @@ const MARKER_INFO: Record<string, { label: string; flag: string; subtitle: strin
   nyc: { label: "New York, US", flag: "🇺🇸", subtitle: "Office" },
   saopaulo: { label: "São Paulo, BR", flag: "🇧🇷", subtitle: "Tech Hub" },
   cdmx: { label: "Ciudad de México, MX", flag: "🇲🇽", subtitle: "Tech Hub" },
-  singapore: { label: "Singapore, SG", flag: "🇸🇬", subtitle: "Tech Hub" },
-  telaviv: { label: "Tel Aviv, IL", flag: "🇮🇱", subtitle: "Tech Hub" },
-  dubai: { label: "Dubai, AE", flag: "🇦🇪", subtitle: "Tech Hub" },
   miami: { label: "Miami, US", flag: "🇺🇸", subtitle: "Tech Hub" },
+  santiago: { label: "Santiago, CL", flag: "🇨🇱", subtitle: "Tech Hub" },
+  bogota: { label: "Bogotá, CO", flag: "🇨🇴", subtitle: "Tech Hub" },
 };
 
-// phi ≈ 4.65 centers between Buenos Aires (-58°W) and New York (-74°W)
-const BASE_PHI = 4.65;
-const THETA = 0.05;
+// phi centers on the Americas (≈ -70°W longitude → radians)
+const BASE_PHI = 4.85;
+const THETA = 0.15;
 
 export default function Globe() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -98,7 +96,7 @@ export default function Globe() {
     let frameId: number;
     const render = () => {
       const w = getWidth() * dpr;
-      autoRotation.current += 0.0005;
+      autoRotation.current += 0.0002;
       globe.update({
         phi: BASE_PHI + autoRotation.current + pointerOffset.current.x / 200,
         theta: THETA + pointerOffset.current.y / 300,

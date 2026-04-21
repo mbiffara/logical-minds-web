@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useCallback } from "react";
+import { useRef, useEffect, useCallback, useState } from "react";
 import gsap from "gsap";
 import { useContact } from "@/context/ContactContext";
 import { useLanguage } from "@/context/LanguageContext";
@@ -12,6 +12,7 @@ const serviceKeys = [
   "qa",
   "cloud",
   "aiIntegration",
+  "mvp12weeks",
 ] as const;
 const budgetKeys = [
   "under10k",
@@ -29,25 +30,20 @@ const deadlineKeys = [
 ] as const;
 
 const inputClass =
-  "w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 placeholder-gray-400 outline-none transition-all duration-300 focus:border-violet-500 focus:bg-white focus:shadow-[0_0_20px_rgba(124,58,237,0.08)] focus:ring-1 focus:ring-violet-500 sm:text-base";
+  "w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 min-h-[44px] text-sm text-gray-900 placeholder-gray-400 outline-none transition-all duration-300 focus:border-violet-500 focus:bg-white focus:shadow-[0_0_20px_rgba(124,58,237,0.08)] focus:ring-1 focus:ring-violet-500";
 
 const selectClass =
-  "w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition-all duration-300 focus:border-violet-500 focus:bg-white focus:shadow-[0_0_20px_rgba(124,58,237,0.08)] focus:ring-1 focus:ring-violet-500 appearance-none cursor-pointer [&>option]:bg-white [&>option]:text-gray-900 sm:text-base";
+  "w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 min-h-[44px] text-sm text-gray-900 outline-none transition-all duration-300 focus:border-violet-500 focus:bg-white focus:shadow-[0_0_20px_rgba(124,58,237,0.08)] focus:ring-1 focus:ring-violet-500 appearance-none cursor-pointer [&>option]:bg-white [&>option]:text-gray-900";
 
 const socials = [
   {
-    name: "GitHub",
-    href: "https://github.com",
-    path: "M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z",
-  },
-  {
-    name: "Twitter",
-    href: "https://twitter.com",
-    path: "M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z",
+    name: "Instagram",
+    href: "https://www.instagram.com/logicalminds.co/",
+    path: "M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z",
   },
   {
     name: "LinkedIn",
-    href: "https://linkedin.com",
+    href: "https://www.linkedin.com/company/logicalminds-co/posts/?feedView=all",
     path: "M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z",
   },
 ];
@@ -55,6 +51,9 @@ const socials = [
 export default function ContactOverlay() {
   const { isOpen, closeContact } = useContact();
   const { t } = useLanguage();
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
   const overlayRef = useRef<HTMLDivElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
@@ -281,58 +280,36 @@ export default function ContactOverlay() {
       </button>
 
       {/* ── Content ── */}
-      <div className="flex flex-1 items-center justify-center px-4 py-20 lg:py-12">
+      <div className="flex flex-1 items-start lg:items-center justify-center px-4 py-12 sm:py-16 lg:py-6">
         <div className="flex w-full max-w-7xl flex-col lg:flex-row lg:items-stretch lg:gap-0">
           {/* ─── Left Panel ─── */}
           <div
             ref={leftRef}
-            className="flex flex-col justify-center px-4 pb-10 lg:w-[42%] lg:pb-0 lg:pl-4 lg:pr-12"
+            className="flex flex-col justify-center px-4 pb-8 lg:w-[42%] lg:pb-0 lg:pl-4 lg:pr-10"
             style={{ opacity: 0 }}
           >
             {/* Title */}
-            <h2 className="bg-gradient-to-r from-gray-900 via-violet-600 to-purple-600 bg-clip-text text-2xl font-bold text-transparent sm:text-3xl lg:text-4xl">
+            <h2
+              style={{
+                fontFamily: '"Alvar Essential", var(--font-sans), sans-serif',
+                fontSize: "clamp(22px, 3.5vw, 32px)",
+                fontWeight: 900,
+                lineHeight: 0.94,
+                letterSpacing: "-0.03em",
+                textTransform: "uppercase",
+                color: "#1a1a2e",
+              }}
+            >
+              <svg className="inline-block mr-2 -mt-1 h-6 w-6 text-violet-500 sm:h-7 sm:w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.58-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+              </svg>
               {t("contact.title")}
             </h2>
-
-            {/* Subtitle */}
-            <p className="mt-3 text-sm leading-relaxed text-gray-600 sm:text-base lg:text-lg">
-              {t("contact.subtitle")}
-            </p>
 
             {/* Description */}
             <p className="mt-2 text-xs leading-relaxed text-gray-400 sm:text-sm">
               {t("contact.description")}
             </p>
-
-            {/* AI Agents callout — shimmer border */}
-            <div className="relative mt-6 overflow-hidden rounded-xl">
-              <div className="absolute inset-0 rounded-xl bg-[conic-gradient(from_var(--shimmer-angle,0deg),transparent_40%,rgba(124,58,237,0.35)_50%,transparent_60%)] p-px animate-[shimmer-rotate_4s_linear_infinite]">
-                <div className="h-full w-full rounded-[11px] bg-white" />
-              </div>
-              <div className="relative flex items-start gap-3 px-4 py-3.5">
-                <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-violet-500/10 text-violet-500 shadow-[0_0_15px_rgba(124,58,237,0.08)]">
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z"
-                    />
-                  </svg>
-                </div>
-                <p className="text-xs leading-relaxed text-gray-500">
-                  <span className="font-medium text-violet-600">
-                    {t("contact.aiAgents.highlight")}
-                  </span>{" "}
-                  {t("contact.aiAgents.text")}
-                </p>
-              </div>
-            </div>
 
             {/* Response time badge */}
             <div className="mt-4 inline-flex w-fit items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3.5 py-1.5">
@@ -343,10 +320,10 @@ export default function ContactOverlay() {
             </div>
 
             {/* Gradient divider */}
-            <div className="my-6 h-px bg-gradient-to-r from-violet-300/60 via-purple-200/30 to-transparent" />
+            <div className="my-4 h-px bg-gradient-to-r from-violet-300/60 via-purple-200/30 to-transparent" />
 
             {/* Contact info — glassmorphism cards */}
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2">
               {/* Email */}
               <div className="group flex items-center gap-4 rounded-xl border border-gray-200 bg-white/60 px-4 py-3 transition-all duration-300 hover:border-violet-300 hover:bg-white hover:shadow-[0_4px_20px_rgba(124,58,237,0.06)]">
                 <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-violet-50 text-violet-500 transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(124,58,237,0.1)]">
@@ -436,7 +413,7 @@ export default function ContactOverlay() {
             </div>
 
             {/* Social icons */}
-            <div className="mt-6 flex gap-3">
+            <div className="mt-4 flex gap-3">
               {socials.map((s) => (
                 <a
                   key={s.name}
@@ -462,9 +439,37 @@ export default function ContactOverlay() {
           <div className="lg:w-[58%]">
             <form
               ref={formCardRef}
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={async (e) => {
+                e.preventDefault();
+                setError("");
+                setSubmitting(true);
+                const form = e.currentTarget;
+                const data = {
+                  name: (form.querySelector("#contact-name") as HTMLInputElement)?.value,
+                  email: (form.querySelector("#contact-email") as HTMLInputElement)?.value,
+                  company: (form.querySelector("#contact-company") as HTMLInputElement)?.value,
+                  phone: (form.querySelector("#contact-phone") as HTMLInputElement)?.value,
+                  service: (form.querySelector("#contact-service") as HTMLSelectElement)?.value,
+                  budget: (form.querySelector("#contact-budget") as HTMLSelectElement)?.value,
+                  deadline: (form.querySelector("#contact-deadline") as HTMLSelectElement)?.value,
+                  message: (form.querySelector("#contact-message") as HTMLTextAreaElement)?.value,
+                };
+                try {
+                  const res = await fetch("/api/contact", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data),
+                  });
+                  if (!res.ok) throw new Error("Failed");
+                  setSubmitted(true);
+                } catch {
+                  setError(t("contact.form.error") || "Something went wrong. Please try again.");
+                } finally {
+                  setSubmitting(false);
+                }
+              }}
               onMouseMove={handleSpotlight}
-              className="group/form relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-5 shadow-sm backdrop-blur-xl transition-all duration-500 hover:border-violet-300 hover:shadow-[0_8px_40px_rgba(124,58,237,0.08)] sm:p-6 lg:p-8"
+              className="group/form relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-4 shadow-sm backdrop-blur-xl transition-all duration-500 hover:border-violet-300 hover:shadow-[0_8px_40px_rgba(124,58,237,0.08)] sm:p-5 lg:p-6"
               style={{ opacity: 0 }}
             >
               {/* Spotlight */}
@@ -482,7 +487,28 @@ export default function ContactOverlay() {
               {/* Top accent line */}
               <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-transparent via-violet-400/40 to-transparent" />
 
-              <div className="relative grid gap-5 sm:grid-cols-2">
+              {/* Success state */}
+              {submitted ? (
+                <div className="relative flex flex-col items-center justify-center gap-4 py-12 text-center">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50">
+                    <svg className="h-8 w-8 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900">{t("contact.form.successTitle")}</h3>
+                  <p className="max-w-sm text-sm text-gray-500">{t("contact.form.successMessage")}</p>
+                </div>
+              ) : (
+              <>
+
+              {/* Error message */}
+              {error && (
+                <div className="relative mb-3 rounded-lg border border-red-200 bg-red-50 px-4 py-2.5 text-sm text-red-600">
+                  {error}
+                </div>
+              )}
+
+              <div className="relative grid gap-4 sm:grid-cols-2">
                 {/* Name */}
                 <div ref={setFieldRef(0)} style={{ opacity: 0 }}>
                   <label
@@ -547,8 +573,8 @@ export default function ContactOverlay() {
                   />
                 </div>
 
-                {/* Service */}
-                <div ref={setFieldRef(4)} style={{ opacity: 0 }}>
+                {/* Service — full width */}
+                <div ref={setFieldRef(4)} className="sm:col-span-2" style={{ opacity: 0 }}>
                   <label
                     htmlFor="contact-service"
                     className="mb-2 block text-xs font-medium uppercase tracking-wider text-gray-400"
@@ -633,38 +659,57 @@ export default function ContactOverlay() {
                   </label>
                   <textarea
                     id="contact-message"
-                    rows={4}
+                    rows={3}
                     className={`${inputClass} resize-none`}
                     placeholder={t("contact.form.message")}
                   />
                 </div>
               </div>
 
-              {/* Submit */}
-              <div ref={bottomRef} className="relative mt-8" style={{ opacity: 0 }}>
+              {/* Submit + Schedule — side by side */}
+              <div ref={bottomRef} className="relative mt-5 flex gap-3" style={{ opacity: 0 }}>
                 <button
                   type="submit"
-                  className="group/btn relative w-full cursor-pointer overflow-hidden rounded-full bg-gradient-to-r from-violet-600 to-violet-500 transition-all duration-500 hover:from-violet-700 hover:to-violet-600 hover:shadow-[0_6px_24px_rgba(124,58,237,0.35)] hover:scale-[1.01] active:scale-[0.99]"
+                  disabled={submitting}
+                  className="group/btn relative flex-1 cursor-pointer overflow-hidden rounded-full bg-gradient-to-r from-violet-600 to-violet-500 transition-all duration-500 hover:from-violet-700 hover:to-violet-600 hover:shadow-[0_6px_24px_rgba(124,58,237,0.35)] hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60 disabled:pointer-events-none"
                 >
                   <span className="absolute inset-0 rounded-full bg-gradient-to-r from-white/0 via-white/20 to-white/0 opacity-0 transition-opacity duration-500 group-hover/btn:opacity-100" />
-                  <span className="relative flex items-center justify-center gap-2 py-3.5 font-semibold text-white">
-                    {t("contact.form.send")}
-                    <svg
-                      className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      strokeWidth={2.5}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
-                      />
-                    </svg>
+                  <span className="relative flex items-center justify-center gap-2 py-3 text-sm font-semibold text-white">
+                    {submitting ? t("contact.form.sending") : t("contact.form.send")}
+                    {!submitting && (
+                      <svg
+                        className="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2.5}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
+                        />
+                      </svg>
+                    )}
                   </span>
                 </button>
+
+                <a
+                  href="https://calendly.com/logicalminds/30-min?back=1&month=2026-04"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group/cal flex flex-1 items-center justify-center gap-2 rounded-full border border-gray-200 bg-white py-3 text-sm transition-all duration-300 hover:border-violet-300 hover:shadow-[0_4px_20px_rgba(124,58,237,0.08)]"
+                >
+                  <svg className="h-4 w-4 shrink-0 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                  </svg>
+                  <span className="font-semibold text-gray-900 transition-colors group-hover/cal:text-violet-600">
+                    {t("contact.form.scheduleCall")}
+                  </span>
+                </a>
               </div>
+              </>
+              )}
             </form>
           </div>
         </div>

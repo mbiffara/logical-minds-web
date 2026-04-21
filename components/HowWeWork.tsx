@@ -72,7 +72,7 @@ export default function HowWeWork() {
       {/* Gradient divider */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-300/30 to-transparent" />
 
-      <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         {/* Badge */}
         <ScrollReveal>
           <div className="flex justify-center">
@@ -89,7 +89,16 @@ export default function HowWeWork() {
 
         {/* Heading */}
         <ScrollReveal delay={0.1}>
-          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl md:text-5xl lg:text-6xl">
+          <h2
+            className="mt-6 text-center text-3xl text-gray-900 sm:text-4xl md:text-5xl lg:text-6xl"
+            style={{
+              fontFamily: '"Alvar Essential", var(--font-sans), sans-serif',
+              fontWeight: 900,
+              lineHeight: 0.94,
+              letterSpacing: "-0.03em",
+              textTransform: "uppercase",
+            }}
+          >
             {t("howWeWork.title")}{" "}
             <span className="bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text text-transparent">
               {t("howWeWork.highlight")}

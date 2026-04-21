@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Alvar Essential — used for hero headlines */
+@font-face { font-family: "Alvar Essential"; src: url("/fonts/AlvarEssential-Bold.otf") format("opentype"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Alvar Essential"; src: url("/fonts/AlvarEssential-Black.otf") format("opentype"); font-weight: 900; font-style: normal; font-display: swap; }
+
 :root {
   --background: #f8f9fc;
   --foreground: #1a1a2e;
@@ -78,6 +82,74 @@ html {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* Clients marquee */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Terminal cursor blink */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero sparkle twinkle */
+@keyframes sparkle-twinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+/* Hero mockup cursor float */
+@keyframes cursorMove {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(60px, 20px); }
+  50% { transform: translate(30px, 50px); }
+  75% { transform: translate(80px, 10px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Hero mockup bar grow */
+@keyframes barGrow {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+/* Hero mockup node illuminate */
+@keyframes nodeIlluminate {
+  0% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+/* Hero scroll links — underline animation */
+.hero-scroll-link {
+  position: relative;
+  color: #9ca3af;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 200ms ease;
+}
+.hero-scroll-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1px;
+  background: #7c3aed;
+  transition: width 250ms ease;
+}
+.hero-scroll-link:hover {
+  color: #7c3aed;
+}
+.hero-scroll-link:hover::after {
+  width: 100%;
 }
 
 /* Mobile: reduce backdrop-blur for GPU performance */
