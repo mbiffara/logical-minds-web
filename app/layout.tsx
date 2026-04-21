@@ -9,12 +9,12 @@ const poppins = Poppins({
   display: "swap",
 });
 
-const siteUrl = "https://logicalminds.ai";
+const siteUrl = "https://logicalminds.co";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Logical Minds — We ship products that scales.",
+    default: "Logical Minds — We ship products that scale.",
     template: "%s — Logical Minds",
   },
   description:
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     alternateLocale: "es_AR",
     url: siteUrl,
     siteName: "Logical Minds",
-    title: "Logical Minds — We ship products that scales.",
+    title: "Logical Minds — We ship products that scale.",
     description:
       "Product agency that partners with companies to build and ship technology products. A hybrid team of engineers, designers, and AI agents — based in Buenos Aires.",
     images: [
@@ -73,13 +73,13 @@ export const metadata: Metadata = {
         url: `${siteUrl}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: "Logical Minds — We ship products that scales.",
+        alt: "Logical Minds — We ship products that scale.",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Logical Minds — We ship products that scales.",
+    title: "Logical Minds — We ship products that scale.",
     description:
       "Product agency that partners with companies to build and ship technology products. A hybrid team of engineers, designers, and AI agents.",
     images: [`${siteUrl}/og-image.png`],
@@ -121,9 +121,8 @@ const jsonLd = {
     "Full-Stack Development",
   ],
   sameAs: [
-    "https://linkedin.com/company/logicalminds",
-    "https://github.com/logicalminds",
-    "https://twitter.com/logicalminds",
+    "https://www.instagram.com/logicalminds.co/",
+    "https://www.linkedin.com/company/logicalminds-co/",
   ],
 };
 
