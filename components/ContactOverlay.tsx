@@ -5,6 +5,12 @@ import gsap from "gsap";
 import { useContact } from "@/context/ContactContext";
 import { useLanguage } from "@/context/LanguageContext";
 
+declare global {
+  interface Window {
+    dataLayer?: Record<string, unknown>[];
+  }
+}
+
 const serviceKeys = [
   "productDev",
   "uxDesign",
@@ -517,6 +523,15 @@ export default function ContactOverlay() {
                   });
                   if (!res.ok) throw new Error("Failed");
                   setSubmitted(true);
+                  // Notify GTM of a successful contact form submission.
+                  if (typeof window !== "undefined") {
+                    window.dataLayer = window.dataLayer || [];
+                    window.dataLayer.push({
+                      event: "generate_lead",
+                      form_service: data.service || undefined,
+                      form_budget: data.budget || undefined,
+                    });
+                  }
                 } catch {
                   setError(t("contact.form.error") || "Something went wrong. Please try again.");
                 } finally {
