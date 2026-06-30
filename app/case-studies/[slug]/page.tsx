@@ -1,35 +1,39 @@
-"use client";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { SLUG_TO_PROJECT, CASE_STUDY_SLUGS } from "@/lib/caseStudyRoutes";
+import { caseStudySeo, pageMetadata } from "@/lib/seo";
+import CaseStudyRouteClient from "./CaseStudyRouteClient";
 
-import { use } from "react";
-import { redirect } from "next/navigation";
-import dynamic from "next/dynamic";
-import { LanguageProvider } from "@/context/LanguageContext";
-import { ContactProvider } from "@/context/ContactContext";
-import { SLUG_TO_PROJECT } from "@/lib/caseStudyRoutes";
-import Navbar from "@/components/Navbar";
-import CaseStudyPage from "@/components/CaseStudyPage";
+export function generateStaticParams() {
+  return Object.values(CASE_STUDY_SLUGS).map((slug) => ({ slug }));
+}
 
-const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
-const ContactOverlay = dynamic(() => import("@/components/ContactOverlay"), { ssr: false });
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const seo = caseStudySeo[slug];
+  if (!seo) return {};
+  return pageMetadata({
+    path: `/case-studies/${slug}`,
+    title: seo.title,
+    description: seo.description,
+  });
+}
 
-export default function CaseStudyRoute({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = use(params);
+export default async function CaseStudyRoute({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
   const projectKey = SLUG_TO_PROJECT[slug];
 
   if (!projectKey) {
-    redirect("/");
+    notFound();
   }
 
-  return (
-    <LanguageProvider>
-      <ContactProvider>
-        <Navbar />
-        <main>
-          <CaseStudyPage projectKey={projectKey} />
-        </main>
-        <Footer />
-        <ContactOverlay />
-      </ContactProvider>
-    </LanguageProvider>
-  );
+  return <CaseStudyRouteClient projectKey={projectKey} />;
 }

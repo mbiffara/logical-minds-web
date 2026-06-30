@@ -1,35 +1,39 @@
-"use client";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { SLUG_TO_SERVICE, SERVICE_SLUGS } from "@/lib/serviceRoutes";
+import { serviceSeo, pageMetadata } from "@/lib/seo";
+import ServiceRouteClient from "./ServiceRouteClient";
 
-import { use } from "react";
-import { redirect } from "next/navigation";
-import dynamic from "next/dynamic";
-import { LanguageProvider } from "@/context/LanguageContext";
-import { ContactProvider } from "@/context/ContactContext";
-import { SLUG_TO_SERVICE } from "@/lib/serviceRoutes";
-import Navbar from "@/components/Navbar";
-import ServicePage from "@/components/ServicePage";
+export function generateStaticParams() {
+  return Object.values(SERVICE_SLUGS).map((slug) => ({ slug }));
+}
 
-const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
-const ContactOverlay = dynamic(() => import("@/components/ContactOverlay"), { ssr: false });
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const seo = serviceSeo[slug];
+  if (!seo) return {};
+  return pageMetadata({
+    path: `/services/${slug}`,
+    title: seo.title,
+    description: seo.description,
+  });
+}
 
-export default function ServiceRoute({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = use(params);
+export default async function ServiceRoute({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
   const serviceKey = SLUG_TO_SERVICE[slug];
 
   if (!serviceKey) {
-    redirect("/");
+    notFound();
   }
 
-  return (
-    <LanguageProvider>
-      <ContactProvider>
-        <Navbar />
-        <main>
-          <ServicePage serviceKey={serviceKey} />
-        </main>
-        <Footer />
-        <ContactOverlay />
-      </ContactProvider>
-    </LanguageProvider>
-  );
+  return <ServiceRouteClient serviceKey={serviceKey} />;
 }
