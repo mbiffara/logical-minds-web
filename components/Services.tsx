@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
 
 import { SERVICE_SLUGS, type ServiceView } from "@/lib/serviceRoutes";
+import { localizeHref } from "@/lib/seo";
 import ScrollReveal from "./animations/ScrollReveal";
 
 /* ── Service groups with /new-style colors ──────────────── */
@@ -23,7 +24,7 @@ const groups: ServiceGroup[] = [
 ];
 
 export default function Services() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const router = useRouter();
 
   return (
@@ -80,7 +81,7 @@ export default function Services() {
                 group={group}
                 index={i}
                 t={t}
-                onNavigate={(key) => router.push(`/services/${SERVICE_SLUGS[key]}`)}
+                onNavigate={(key) => router.push(localizeHref(`/services/${SERVICE_SLUGS[key]}`, language))}
               />
             </ScrollReveal>
           ))}

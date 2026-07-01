@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
+import { localizeHref } from "@/lib/seo";
 import ScrollReveal from "./animations/ScrollReveal";
 
 /* ── Phase data for Product Mockup ──────────────────────── */
@@ -622,7 +623,7 @@ function DeployPhase() {
 
 /* ── Main Roadmap section ────────────────────────────────── */
 export default function Roadmap() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   return (
     <section id="roadmap" className="relative py-20 sm:py-28" style={{ background: "#fff" }}>
@@ -686,7 +687,7 @@ export default function Roadmap() {
               {/* CTAs */}
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
-                  href="/services/mvp-12-weeks"
+                  href={localizeHref("/services/mvp-12-weeks", language)}
                   className="group/btn relative inline-flex cursor-pointer items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-violet-600 to-violet-500 px-6 py-2.5 text-sm font-semibold text-white transition-all duration-500 hover:from-violet-700 hover:to-violet-600 hover:shadow-[0_6px_24px_rgba(124,58,237,0.35)] hover:scale-[1.01] active:scale-[0.99]"
                 >
                   <span className="absolute inset-0 rounded-full bg-gradient-to-r from-white/0 via-white/20 to-white/0 opacity-0 transition-opacity duration-500 group-hover/btn:opacity-100" />

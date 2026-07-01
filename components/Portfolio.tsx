@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 import { useContact } from "@/context/ContactContext";
 import { CASE_STUDY_SLUGS, type ProjectView } from "@/lib/caseStudyRoutes";
+import { localizeHref } from "@/lib/seo";
 import ScrollReveal from "./animations/ScrollReveal";
 import {
   SiNextdotjs,
@@ -129,7 +130,7 @@ const projectUrls: Record<ProjectView, string> = {
 
 /* ── Main Portfolio section ─────────────────────────────── */
 export default function Portfolio() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { openContact } = useContact();
   const items = t("portfolio.items") as Array<{
     title: string;
@@ -305,7 +306,7 @@ export default function Portfolio() {
                       {/* CTAs */}
                       <div className="mt-5 flex items-center gap-3">
                         <Link
-                          href={`/case-studies/${CASE_STUDY_SLUGS[key]}`}
+                          href={localizeHref(`/case-studies/${CASE_STUDY_SLUGS[key]}`, language)}
                           className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 px-4 py-1.5 text-[11px] font-semibold text-gray-700 transition-all duration-200 hover:border-gray-300 hover:bg-gray-50"
                         >
                           {t("portfolioDetail.cta_readMore")}

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useContact } from "@/context/ContactContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { CASE_STUDY_SLUGS, type ProjectView } from "@/lib/caseStudyRoutes";
+import { localizeHref } from "@/lib/seo";
 import ScrollReveal from "./animations/ScrollReveal";
 import {
   SiNextdotjs, SiNodedotjs, SiPostgresql, SiTypescript, SiVercel,
@@ -95,7 +96,7 @@ const MONO = "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
 /* ── Main CaseStudyPage component ────────────────────────── */
 export default function CaseStudyPage({ projectKey }: { projectKey: ProjectView }) {
   const { openContact } = useContact();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const handleSpotlight = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -131,7 +132,7 @@ export default function CaseStudyPage({ projectKey }: { projectKey: ProjectView 
           {/* Back link */}
           <ScrollReveal>
             <Link
-              href="/#portfolio"
+              href={localizeHref("/#portfolio", language)}
               className="mb-6 inline-flex items-center gap-2 text-sm font-medium transition-opacity hover:opacity-80"
               style={{ color: "rgba(255,255,255,0.85)" }}
             >
@@ -445,7 +446,7 @@ export default function CaseStudyPage({ projectKey }: { projectKey: ProjectView 
 
                 {/* Next case study card */}
                 <Link
-                  href={`/case-studies/${CASE_STUDY_SLUGS[nextKey]}`}
+                  href={localizeHref(`/case-studies/${CASE_STUDY_SLUGS[nextKey]}`, language)}
                   className="group/next relative flex flex-col justify-between overflow-hidden rounded-2xl p-7 transition-transform duration-300 hover:scale-[1.01] sm:p-9"
                   style={{ background: nc.hex, color: "#fff", minHeight: 220 }}
                 >

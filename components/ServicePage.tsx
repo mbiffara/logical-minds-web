@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { useContact } from "@/context/ContactContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { SERVICE_SLUGS, type ServiceView } from "@/lib/serviceRoutes";
+import { localizeHref } from "@/lib/seo";
 import ScrollReveal from "./animations/ScrollReveal";
 import {
   SiNextdotjs, SiNodedotjs, SiPostgresql, SiTypescript, SiVercel,
@@ -933,7 +934,7 @@ function MvpHeroGantt() {
 /* ── Main ServicePage component ──────────────────────────── */
 export default function ServicePage({ serviceKey }: { serviceKey: ServiceView }) {
   const { openContact } = useContact();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const [activeTab, setActiveTab] = useState<SubService>(groupTabs[serviceKey][0].key);
 
@@ -974,7 +975,7 @@ export default function ServicePage({ serviceKey }: { serviceKey: ServiceView })
           {/* Back link */}
           <ScrollReveal>
             <Link
-              href="/#services"
+              href={localizeHref("/#services", language)}
               className="mb-6 inline-flex items-center gap-2 text-sm font-medium transition-opacity hover:opacity-80"
               style={{ color: "rgba(255,255,255,0.85)" }}
             >
@@ -1245,7 +1246,7 @@ export default function ServicePage({ serviceKey }: { serviceKey: ServiceView })
 
                 {/* Next service card */}
                 <Link
-                  href={`/services/${SERVICE_SLUGS[nextKey]}`}
+                  href={localizeHref(`/services/${SERVICE_SLUGS[nextKey]}`, language)}
                   className="group/next relative flex flex-col justify-between overflow-hidden rounded-2xl p-7 transition-transform duration-300 hover:scale-[1.01] sm:p-9"
                   style={{ background: nc.hex, color: "#fff", minHeight: 220 }}
                 >
