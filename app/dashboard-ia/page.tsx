@@ -1,12 +1,5 @@
-"use client";
-
-import { LanguageProvider } from "@/context/LanguageContext";
-import DashboardShell from "@/components/dashboard/DashboardShell";
+import DashboardClient from "@/components/DashboardClient";
 
 export default function DashboardPage() {
-  return (
-    <LanguageProvider>
-      <DashboardShell />
-    </LanguageProvider>
-  );
+  return <DashboardClient locale="en" />;
 }

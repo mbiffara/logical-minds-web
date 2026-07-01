@@ -3,13 +3,13 @@ import { homeSeo, localizedMetadata } from "@/lib/seo";
 import HomeClient from "@/components/HomeClient";
 
 export const metadata: Metadata = localizedMetadata({
-  locale: "en",
+  locale: "es",
   enPath: "",
   esPath: "/es",
-  title: { absolute: homeSeo.en.title },
-  description: homeSeo.en.description,
+  title: { absolute: homeSeo.es.title },
+  description: homeSeo.es.description,
 });
 
-export default function Home() {
-  return <HomeClient locale="en" />;
+export default function HomeEs() {
+  return <HomeClient locale="es" />;
 }

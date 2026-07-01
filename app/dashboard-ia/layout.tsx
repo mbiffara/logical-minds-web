@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { SITE_URL } from "@/lib/seo";
+import { dashboardSeo, localizedMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: { absolute: "AI Command Center — Logical Minds" },
-  description:
-    "Mission-control dashboard tracking 18 specialized AI agents across 6 product lifecycle stages in real time.",
-  alternates: { canonical: `${SITE_URL}/dashboard-ia` },
-};
+export const metadata: Metadata = localizedMetadata({
+  locale: "en",
+  enPath: "/dashboard-ia",
+  esPath: "/es/dashboard-ia",
+  title: { absolute: dashboardSeo.en.title },
+  description: dashboardSeo.en.description,
+});
 
 export default function DashboardLayout({
   children,
