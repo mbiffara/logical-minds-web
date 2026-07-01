@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { SLUG_TO_SERVICE, SERVICE_SLUGS } from "@/lib/serviceRoutes";
 import { serviceSeo, localizedMetadata } from "@/lib/seo";
-import ServiceRouteClient from "./ServiceRouteClient";
+import ServiceRouteClient from "../../../services/[slug]/ServiceRouteClient";
 
 export function generateStaticParams() {
   return Object.values(SERVICE_SLUGS).map((slug) => ({ slug }));
@@ -14,10 +14,10 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const seo = serviceSeo.en[slug];
+  const seo = serviceSeo.es[slug];
   if (!seo) return {};
   return localizedMetadata({
-    locale: "en",
+    locale: "es",
     enPath: `/services/${slug}`,
     esPath: `/es/services/${slug}`,
     title: seo.title,
@@ -25,7 +25,7 @@ export async function generateMetadata({
   });
 }
 
-export default async function ServiceRoute({
+export default async function ServiceRouteEs({
   params,
 }: {
   params: Promise<{ slug: string }>;
@@ -37,5 +37,5 @@ export default async function ServiceRoute({
     notFound();
   }
 
-  return <ServiceRouteClient serviceKey={serviceKey} locale="en" />;
+  return <ServiceRouteClient serviceKey={serviceKey} locale="es" />;
 }
