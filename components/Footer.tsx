@@ -6,6 +6,7 @@ import Link from "next/link";
 import type { ServiceView } from "@/lib/serviceRoutes";
 import { SERVICE_SLUGS } from "@/lib/serviceRoutes";
 import { CASE_STUDY_SLUGS, type ProjectView } from "@/lib/caseStudyRoutes";
+import { localizeHref } from "@/lib/seo";
 
 const SERVICES: { key: ServiceView; label: string; color: string; svg: string }[] = [
   { key: "logicalExperiences", label: "LM Experiences", color: "#227CFF", svg: "/assets/service-experiences.svg" },
@@ -63,7 +64,7 @@ export default function Footer() {
               {SERVICES.map((s) => (
                 <li key={s.key}>
                   <Link
-                    href={`/services/${SERVICE_SLUGS[s.key]}`}
+                    href={localizeHref(`/services/${SERVICE_SLUGS[s.key]}`, language)}
                     className="group/svc inline-flex items-center gap-2 text-sm transition-colors duration-200 cursor-pointer"
                     style={{ color: "rgba(255,255,255,0.85)" }}
                     onMouseEnter={(e) => {
@@ -103,7 +104,7 @@ export default function Footer() {
               {WORK.map((w) => (
                 <li key={w.key}>
                   <Link
-                    href={`/case-studies/${CASE_STUDY_SLUGS[w.key]}`}
+                    href={localizeHref(`/case-studies/${CASE_STUDY_SLUGS[w.key]}`, language)}
                     className="text-sm transition-colors duration-200 hover:text-violet-400"
                     style={{ color: "rgba(255,255,255,0.85)" }}
                   >

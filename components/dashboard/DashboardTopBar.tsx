@@ -6,6 +6,7 @@ import Link from "next/link";
 import gsap from "gsap";
 
 import { useLanguage } from "@/context/LanguageContext";
+import { localizeHref } from "@/lib/seo";
 import { teams } from "@/lib/dashboard-data";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 
@@ -65,7 +66,7 @@ interface DashboardTopBarProps {
 }
 
 export default function DashboardTopBar({ onMobileMenuToggle }: DashboardTopBarProps) {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [clock, setClock] = useState("");
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -205,7 +206,7 @@ export default function DashboardTopBar({ onMobileMenuToggle }: DashboardTopBarP
               )}
 
               {/* Logo */}
-              <Link href="/" className="shrink-0 transition-opacity duration-200 hover:opacity-80">
+              <Link href={localizeHref("/", language)} className="shrink-0 transition-opacity duration-200 hover:opacity-80">
                 <img
                   src="/logo-logical-minds.svg"
                   alt="Logical Minds"

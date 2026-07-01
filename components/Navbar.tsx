@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { useLanguage } from "@/context/LanguageContext";
 import { useContact } from "@/context/ContactContext";
 import { SERVICE_SLUGS, type ServiceView } from "@/lib/serviceRoutes";
+import { localizeHref } from "@/lib/seo";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 const navLinks = [
@@ -35,11 +36,12 @@ const serviceSvg: Record<ServiceView, string> = {
 const howWeWorkItems = ["specializedAgents", "orchestration", "ecosystem"] as const;
 
 export default function Navbar() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { openContact } = useContact();
   const router = useRouter();
   const pathname = usePathname();
-  const isRoot = pathname === "/";
+  const isRoot = pathname === "/" || pathname === "/es";
+  const lh = (path: string) => localizeHref(path, language);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
@@ -246,7 +248,7 @@ export default function Navbar() {
         document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
       }, 500);
     } else {
-      setTimeout(() => router.push(`/#${id}`), 500);
+      setTimeout(() => router.push(lh(`/#${id}`)), 500);
     }
   };
 
@@ -263,14 +265,14 @@ export default function Navbar() {
     closeMenu();
     if (serviceKey) {
       setTimeout(() => {
-        router.push(`/services/${SERVICE_SLUGS[serviceKey]}`);
+        router.push(lh(`/services/${SERVICE_SLUGS[serviceKey]}`));
       }, 500);
     } else if (isRoot) {
       setTimeout(() => {
         document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
       }, 500);
     } else {
-      setTimeout(() => router.push(`/#${sectionId}`), 500);
+      setTimeout(() => router.push(lh(`/#${sectionId}`)), 500);
     }
   };
 
@@ -292,7 +294,7 @@ export default function Navbar() {
               if (isRoot) {
                 document.getElementById(link)?.scrollIntoView({ behavior: "smooth" });
               } else {
-                router.push(`/#${link}`);
+                router.push(lh(`/#${link}`));
               }
               setOpenDropdown(null);
             }}
@@ -336,7 +338,7 @@ export default function Navbar() {
                         key={group.key}
                         onClick={() => {
                           setOpenDropdown(null);
-                          router.push(`/services/${SERVICE_SLUGS[group.key]}`);
+                          router.push(lh(`/services/${SERVICE_SLUGS[group.key]}`));
                         }}
                         className="group/card relative flex flex-col rounded-xl border border-transparent p-3.5 w-[200px] text-left transition-colors duration-200 hover:border-gray-200 hover:bg-gray-50/80 cursor-pointer overflow-hidden"
                       >
@@ -382,7 +384,7 @@ export default function Navbar() {
                         if (isRoot) {
                           document.getElementById("howWeWork")?.scrollIntoView({ behavior: "smooth" });
                         } else {
-                          router.push("/#howWeWork");
+                          router.push(lh("/#howWeWork"));
                         }
                       }}
                       className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-left transition-all duration-200 hover:bg-gray-50 cursor-pointer group/item"
@@ -407,7 +409,7 @@ export default function Navbar() {
           if (isRoot) {
             document.getElementById(link)?.scrollIntoView({ behavior: "smooth" });
           } else {
-            router.push(`/#${link}`);
+            router.push(lh(`/#${link}`));
           }
         }}
         className={`relative px-3 py-1.5 text-sm font-medium transition-all duration-300 rounded-lg cursor-pointer ${
@@ -491,13 +493,13 @@ export default function Navbar() {
             <div className="flex h-20 items-center justify-between">
               {/* Logo */}
               <a
-                href="/"
+                href={lh("/")}
                 onClick={(e) => {
                   e.preventDefault();
                   if (isRoot) {
                     window.scrollTo({ top: 0, behavior: "smooth" });
                   } else {
-                    router.push("/");
+                    router.push(lh("/"));
                   }
                 }}
                 className="flex items-center gap-2 relative z-[60] cursor-pointer"

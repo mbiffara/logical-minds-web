@@ -14,6 +14,20 @@ export function localePrefix(locale: Language): string {
   return locale === "es" ? "/es" : "";
 }
 
+/**
+ * Prefix an internal href/route with the current locale so navigation stays
+ * within the same language. English is unchanged; Spanish gets a `/es` prefix.
+ * Handles route paths (`/services/x` → `/es/services/x`), the homepage
+ * (`/` → `/es`) and home-anchor links (`/#services` → `/es#services`).
+ * Bare hashes (`#contact`) and external URLs are returned untouched.
+ */
+export function localizeHref(path: string, locale: Language): string {
+  if (locale !== "es" || !path.startsWith("/")) return path;
+  if (path === "/") return "/es";
+  if (path.startsWith("/#")) return `/es${path.slice(1)}`;
+  return `/es${path}`;
+}
+
 const OG_LOCALE: Record<Language, string> = { en: "en_US", es: "es_AR" };
 
 type SeoEntry = { title: string; description: string };
