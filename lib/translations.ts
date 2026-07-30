@@ -789,6 +789,7 @@ export const translations: Translations = {
         terms: "Terms of Service",
         mvp: "MVP in 8 Weeks",
         blog: "Blog",
+        skills: "Free Skills",
       },
     },
     blog: {
@@ -803,6 +804,21 @@ export const translations: Translations = {
       ctaTitle: "Have a product in mind?",
       ctaSubtitle: "Tell us what you're building — we'll tell you how we'd ship it.",
       ctaButton: "Let's talk",
+    },
+    resources: {
+      badge: "Resources",
+      skillsTitle: "Free skills for your AI agents",
+      skillsSubtitle:
+        "Skills we use with Claude and other AI agents, shared as plain Markdown files. Download them, drop them into your setup, make them yours.",
+      free: "Free",
+      download: "Download .md",
+      published: "Published",
+      howToTitle: "How to use a skill",
+      howToSteps: [
+        "Download the .md file — it's plain Markdown, no signup needed.",
+        "Drop it into your agent's skills folder (e.g. ~/.claude/skills/<name>/SKILL.md for Claude Code).",
+        "Invoke it from your agent and adapt the instructions to your workflow.",
+      ],
     },
     dashboard: {
       topBar: {
@@ -2095,6 +2111,7 @@ export const translations: Translations = {
         terms: "Términos de Servicio",
         mvp: "MVP en 8 Semanas",
         blog: "Blog",
+        skills: "Skills Gratis",
       },
     },
     blog: {
@@ -2109,6 +2126,21 @@ export const translations: Translations = {
       ctaTitle: "¿Tenés un producto en mente?",
       ctaSubtitle: "Contanos qué estás construyendo — te decimos cómo lo lanzaríamos.",
       ctaButton: "Hablemos",
+    },
+    resources: {
+      badge: "Recursos",
+      skillsTitle: "Skills gratuitas para tus agentes de IA",
+      skillsSubtitle:
+        "Skills que usamos con Claude y otros agentes de IA, compartidas como archivos Markdown. Descargalas, sumalas a tu setup y hacelas tuyas.",
+      free: "Gratis",
+      download: "Descargar .md",
+      published: "Publicado",
+      howToTitle: "Cómo usar una skill",
+      howToSteps: [
+        "Descargá el archivo .md — es Markdown plano, sin registro.",
+        "Ponelo en la carpeta de skills de tu agente (ej. ~/.claude/skills/<nombre>/SKILL.md para Claude Code).",
+        "Invocala desde tu agente y adaptá las instrucciones a tu flujo de trabajo.",
+      ],
     },
     dashboard: {
       topBar: {

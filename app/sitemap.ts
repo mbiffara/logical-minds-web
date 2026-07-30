@@ -38,6 +38,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         lastModified: post.date,
       })),
     ),
+    ...localizedEntries("/resources/skills", 0.6),
     ...localizedEntries("/dashboard-ia", 0.3),
   ];
 }
