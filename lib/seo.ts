@@ -177,6 +177,19 @@ export const blogSeo: Record<Language, SeoEntry> = {
   },
 };
 
+export const skillResourcesSeo: Record<Language, SeoEntry> = {
+  en: {
+    title: "Free AI Agent Skills",
+    description:
+      "Free skills for Claude and other AI agents, shared as plain Markdown files by the Logical Minds team. Download, drop into your setup, and make them yours.",
+  },
+  es: {
+    title: "Skills Gratuitas para Agentes de IA",
+    description:
+      "Skills gratuitas para Claude y otros agentes de IA, compartidas como archivos Markdown por el equipo de Logical Minds. Descargalas, sumalas a tu setup y hacelas tuyas.",
+  },
+};
+
 export const dashboardSeo: Record<Language, SeoEntry> = {
   en: {
     title: "AI Command Center — Logical Minds",
