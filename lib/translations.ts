@@ -788,7 +788,21 @@ export const translations: Translations = {
         privacy: "Privacy Policy",
         terms: "Terms of Service",
         mvp: "MVP in 8 Weeks",
+        blog: "Blog",
       },
+    },
+    blog: {
+      badge: "Blog",
+      title: "Notes on product, engineering & AI",
+      subtitle:
+        "Practical ideas from our team on building and shipping software with humans and AI agents.",
+      readArticle: "Read article",
+      backToBlog: "Back to blog",
+      minRead: "min read",
+      moreArticles: "More articles",
+      ctaTitle: "Have a product in mind?",
+      ctaSubtitle: "Tell us what you're building — we'll tell you how we'd ship it.",
+      ctaButton: "Let's talk",
     },
     dashboard: {
       topBar: {
@@ -2080,7 +2094,21 @@ export const translations: Translations = {
         privacy: "Política de Privacidad",
         terms: "Términos de Servicio",
         mvp: "MVP en 8 Semanas",
+        blog: "Blog",
       },
+    },
+    blog: {
+      badge: "Blog",
+      title: "Notas sobre producto, ingeniería e IA",
+      subtitle:
+        "Ideas prácticas de nuestro equipo sobre construir y lanzar software con humanos y agentes de IA.",
+      readArticle: "Leer artículo",
+      backToBlog: "Volver al blog",
+      minRead: "min de lectura",
+      moreArticles: "Más artículos",
+      ctaTitle: "¿Tenés un producto en mente?",
+      ctaSubtitle: "Contanos qué estás construyendo — te decimos cómo lo lanzaríamos.",
+      ctaButton: "Hablemos",
     },
     dashboard: {
       topBar: {

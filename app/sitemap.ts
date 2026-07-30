@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL, serviceSeo, caseStudySeo } from "@/lib/seo";
+import { BLOG_POSTS } from "@/lib/blogContent";
 
 /**
  * Emit both locale variants of a page with reciprocal hreflang alternates.
@@ -29,6 +30,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ),
     ...Object.keys(caseStudySeo.en).flatMap((slug) =>
       localizedEntries(`/case-studies/${slug}`, 0.7),
+    ),
+    ...localizedEntries("/blog", 0.6),
+    ...BLOG_POSTS.flatMap((post) =>
+      localizedEntries(`/blog/${post.slug}`, 0.5).map((entry) => ({
+        ...entry,
+        lastModified: post.date,
+      })),
     ),
     ...localizedEntries("/dashboard-ia", 0.3),
   ];

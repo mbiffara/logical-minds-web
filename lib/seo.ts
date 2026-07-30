@@ -164,6 +164,19 @@ export const caseStudySeo: Record<Language, Record<string, SeoEntry>> = {
   },
 };
 
+export const blogSeo: Record<Language, SeoEntry> = {
+  en: {
+    title: "Blog",
+    description:
+      "Notes on product, engineering and AI from the Logical Minds team — practical ideas on building and shipping software with humans and AI agents.",
+  },
+  es: {
+    title: "Blog",
+    description:
+      "Notas sobre producto, ingeniería e IA del equipo de Logical Minds — ideas prácticas sobre construir y lanzar software con humanos y agentes de IA.",
+  },
+};
+
 export const dashboardSeo: Record<Language, SeoEntry> = {
   en: {
     title: "AI Command Center — Logical Minds",
