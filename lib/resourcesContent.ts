@@ -26,6 +26,21 @@ export interface SkillResource {
 
 export const SKILL_RESOURCES: SkillResource[] = [
   {
+    slug: "app-security-best-practices",
+    file: "app-security-best-practices.md",
+    date: "2026-07-31",
+    en: {
+      title: "App Security Best Practices",
+      description:
+        "A Claude skill that enforces security best practices when building or reviewing app features — JWT auth, server-side role checks, file uploads, webhooks, OAuth, multi-tenancy, privacy, and a 12-point review checklist.",
+    },
+    es: {
+      title: "App Security Best Practices",
+      description:
+        "Una skill de Claude que aplica buenas prácticas de seguridad al construir o revisar funcionalidades — auth con JWT, chequeos de roles en el servidor, uploads, webhooks, OAuth, multi-tenancy, privacidad y un checklist de review de 12 puntos.",
+    },
+  },
+  {
     slug: "mvp-scoping",
     file: "mvp-scoping.md",
     date: "2026-07-30",
